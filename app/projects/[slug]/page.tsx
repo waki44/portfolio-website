@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/data/projects";
@@ -42,13 +43,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
       </header>
 
-      <div
-        aria-hidden="true"
-        className="mt-8 flex h-56 items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 px-4 text-center dark:border-zinc-700 dark:bg-zinc-900/50 sm:h-64"
-      >
-        <p className="text-sm font-medium uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-          Project preview — screenshot not provided yet
-        </p>
+      <div className="relative mt-8 h-56 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 sm:h-80">
+        <Image
+          src={project.image}
+          alt={`${project.name} — project thumbnail`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 896px"
+          className="object-cover"
+          priority
+        />
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">

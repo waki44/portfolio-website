@@ -1,16 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-600/5 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-indigo-700">
-      <div
-        aria-hidden="true"
-        className="flex h-36 items-center justify-center border-b border-dashed border-zinc-200 bg-zinc-50 px-4 text-center dark:border-zinc-800 dark:bg-zinc-900/50"
-      >
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-          Project preview — screenshot not provided yet
-        </p>
+      <div className="relative h-40 overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+        <Image
+          src={project.image}
+          alt={`${project.name} — project thumbnail`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+        />
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">

@@ -1,5 +1,6 @@
 export type Project = {
   slug: string;
+  image: string;
   name: string;
   tagline: string;
   description: string;
@@ -15,6 +16,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "automated-database-code-audit-tool",
+    image: "/projects/automated-database-code-audit-tool.jpg",
     name: "Automated Database Code Audit Tool",
     tagline: "Streamlined security and compliance checks for database code",
     description:
@@ -37,6 +39,7 @@ export const projects: Project[] = [
   },
   {
     slug: "gympro",
+    image: "/projects/gympro.jpg",
     name: "GymPro — Gym Management System",
     tagline: "Full-stack gym management with analytics and fee tracking",
     description:
@@ -59,6 +62,7 @@ export const projects: Project[] = [
   },
   {
     slug: "datanest-ai-assistant",
+    image: "/projects/datanest-ai-assistant.jpg",
     name: "DataNest AI Assistant — Desktop AI Operator",
     tagline: "Windows desktop assistant with API-connected LLM workflows",
     description:
@@ -79,6 +83,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ai-content-detector",
+    image: "/projects/ai-content-detector.jpg",
     name: "AI Content Detector — Multimodal Web Application",
     tagline: "Text and image analysis with confidence scores",
     description:
@@ -100,6 +105,7 @@ export const projects: Project[] = [
   },
   {
     slug: "image-caption-generator",
+    image: "/projects/image-caption-generator.jpg",
     name: "Image Caption Generator",
     tagline: "BLIP-powered image captioning with an interactive Gradio interface",
     description:
@@ -120,6 +126,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rumicloud-share-space",
+    image: "/projects/rumicloud-share-space.jpg",
     name: "RumiCloud Share Space — File-Sharing Platform",
     tagline: "Cloud file-sharing prototype with shareable links",
     description:
@@ -136,6 +143,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rag-portfolio-agent",
+    image: "/projects/rag-portfolio-agent.jpg",
     name: "RAG Portfolio Agent & LLM Utilities",
     tagline: "Conversational portfolio agent using semantic retrieval and RAG",
     description:
@@ -157,6 +165,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ai-sentiment-analyzer",
+    image: "/projects/ai-sentiment-analyzer.jpg",
     name: "AI Sentiment Analyzer",
     tagline: "ML web app for customer review sentiment classification",
     description:
@@ -177,6 +186,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fbr-wala",
+    image: "/projects/fbr-wala.jpg",
     name: "FBR Wala — Tax & Wealth Statement CLI",
     tagline: "Pakistan FBR tax calculation CLI engine for salaried and freelancers",
     description:
