@@ -1,0 +1,66 @@
+{
+  "model": "text-embedding-3-small",
+  "createdAt": "2026-10-23T10:11:39.868Z",
+  "chunks": [
+    {
+      "id": "CV — Certifications-0",
+      "source": "CV — Certifications",
+      "text": "# Certifications\n## Certifications\n- Crash Course on Python — Google / Coursera (verified)\n- Python for Data Science, AI & Development — IBM / Coursera (verified)\n- Machine Learning Course — Innovista Learn Easy\n- Critical Thinking in the AI Era — HP LIFE\n- CS101 Intro to Programming I — Saylor Academy\n- ChatGPT and OpenAI API — freeCodeCamp / Cursa",
+      "embedding": []
+    },
+    {
+      "id": "CV — Education-0",
+      "source": "CV — Education",
+      "text": "# Education\n## BS Artificial Intelligence at FUUAST Islamabad\nBS Artificial Intelligence at FUUAST Islamabad. Currently in Semester 5, with expected graduation in 2028.\n## ICS from FBISE Islamabad\nICS from FBISE Islamabad.",
+      "embedding": []
+    },
+    {
+      "id": "CV — Experience-0",
+      "source": "CV — Experience",
+      "text": "# Experience & Leadership\n## Tech Lead & Content Creator at Duo Byte AI\nTech Lead & Content Creator at Duo Byte AI (@duobyte_AI), creating educational tech content on AI tools, developer utilities, productivity apps, and student resources, including practical tutorials on AI-assisted tools and developer workflows.\n## Academic Project Team Lead at FUUAST\nAcademic Project Team Lead at FUUAST. Led teams of 3–4 students, covering planning, task allocation, progress, and delivery. Reviewed and integrated contributions, resolved issues, and checked deliverables, with a focus on team coordination, ownership, and quality review.",
+      "embedding": []
+    },
+    {
+      "id": "CV — Profile-0",
+      "source": "CV — Profile",
+      "text": "# Syed Waqar Raza Zaidi — Profile\n## Overview\nSyed Waqar Raza Zaidi is an AI Engineer | Python Automation & Software Developer based in Islamabad, Pakistan.\n## Professional Summary\nAI Engineer and BS Artificial Intelligence student with hands-on experience building AI-powered applications, LLM integrations, computer-vision demos, Python automation tools, and full-stack applications. Experienced with Python, PyTorch, Hugging Face Transformers, FastAPI, REST APIs, and web/mobile interfaces. Developing deeper ML skills with a long-term goal of specialising in ML engineering. Brings project ownership, team coordination, and a focus on practical, maintainable software.\n## Contact",
+      "embedding": []
+    },
+    {
+      "id": "CV — Profile-1",
+      "source": "CV — Profile",
+      "text": "- Email: syedwaqarraza27@gmail.com\n- GitHub: github.com/waki44\n- GitHub: github.com/waki_44\n- Location: Islamabad, Pakistan\n## Languages\n- Urdu: native\n- English: intermediate",
+      "embedding": []
+    },
+    {
+      "id": "CV — Projects-0",
+      "source": "CV — Projects",
+      "text": "# Projects\n## Automated Database Code Audit Tool\nBuilt with Python, database schema analysis, security and compliance techniques. It automates schema and query analysis to find vulnerabilities and optimise performance. Available on GitHub.\n## GymPro Gym Management System\nBuilt with React.js, FastAPI, MongoDB, Tailwind CSS, and Recharts. Features include member registration, membership records, fee tracking, expiry alerts, dashboard analytics, workout filters, and monthly revenue charts. Demo: workout-fee-manager.preview.emergentagent.com\n## DataNest AI Assistant",
+      "embedding": []
+    },
+    {
+      "id": "CV — Projects-1",
+      "source": "CV — Projects",
+      "text": "Built with Python, CustomTkinter, and the Google Gemini API. A Windows desktop AI operator with a custom GUI. Available at github.com/waki44/DataNest-AI-Assistant\n## AI Content Detector\nBuilt with HTML, CSS, JavaScript, the Claude API, and the Hugging Face Inference API. It provides text and image analysis with confidence scores and explanations. Available at github.com/waki_44/ai-detector\n## Image Caption Generator\nBuilt with Python, PyTorch, Hugging Face Transformers, Salesforce BLIP, and Gradio. It uses BLIP for image captioning with a Gradio UI.\n## RumiCloud Share Space",
+      "embedding": []
+    },
+    {
+      "id": "CV — Projects-2",
+      "source": "CV — Projects",
+      "text": "A full-stack cloud storage project built with Lovable AI. Features include uploads, shareable links, and file management. Demo: preview--rumicloud-share-space.lovable.app\n## RAG Portfolio Agent & LLM Utilities\nBuilt with Python, vector databases, semantic search, LLM APIs, and REST APIs. Includes a conversational portfolio agent with semantic retrieval and RAG, a local multi-model API wrapper and testing environment, and utilities for file organisation, web scraping, and data processing.",
+      "embedding": []
+    },
+    {
+      "id": "CV — Skills-0",
+      "source": "CV — Skills",
+      "text": "# Skills\n## AI & Machine Learning\nPyTorch, Hugging Face Transformers, Salesforce BLIP, scikit-learn, model inference, computer vision, NLP, neural networks, transfer learning, prompt engineering.\n## Generative AI & LLMs\nLLM API integration, RAG, semantic search, vector databases, conversational AI, local LLM orchestration, agentic workflows.\n## Programming\nProgramming languages: Python, JavaScript, TypeScript, C++, Java, Bash, HTML5, CSS3.\n## Web, Mobile & UI\nReact.js, React Native, Expo, Tailwind CSS, Shadcn UI, Android Jetpack Compose, CustomTkinter, Gradio.\n## Backend & Data\nFastAPI, REST APIs, MongoDB, Pandas, NumPy, Matplotlib, Recharts, Pillow, Requests, web scraping, data processing.",
+      "embedding": []
+    },
+    {
+      "id": "CV — Skills-1",
+      "source": "CV — Skills",
+      "text": "## Tools\nGit, GitHub, VS Code, Google Colab, Jupyter Notebook, VirtualBox, Cursor AI, Lovable AI.",
+      "embedding": []
+    }
+  ]
+}
