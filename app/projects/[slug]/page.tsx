@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
       </header>
 
-      <div className="relative mt-8 h-56 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 sm:h-80">
+      <div className="relative mt-8 aspect-[2/1] overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
         <Image
           src={project.image}
           alt={`${project.name} — project thumbnail`}
