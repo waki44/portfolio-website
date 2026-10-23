@@ -34,11 +34,13 @@ export const metadata: Metadata = {
     title: `${profile.name} — ${profile.title}`,
     description: profile.summary,
     locale: "en_US",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 600, alt: `${profile.name} — AI Engineer, Portfolio` }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${profile.name} — ${profile.title}`,
     description: profile.summary,
+    images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true },
 };
