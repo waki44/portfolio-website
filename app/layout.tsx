@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     template: `%s | ${profile.name}`,
   },
   description: profile.summary,
+  verification: {
+    google: "UJN524NbaFLvwblfhlseRRld4NwQKsaiJz9QtUCwjiQ",
+  },
   keywords: ["AI Engineer", "Python", "Machine Learning", "LLM", "RAG", "FastAPI", "React", "Islamabad"],
   authors: [{ name: profile.name }],
   openGraph: {
