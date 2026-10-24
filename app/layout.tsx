@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import { profile } from "@/data/profile";
 
-const siteUrl = "https://syedwaqarrazazaidi.vercel.app";
+const siteUrl = "https://portfolio-website-sigma-ashen-90.vercel.app";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +45,43 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Structured data: tells Google / recruiter search tools exactly who this
+// person is, what he does, and which profiles are his (sameAs disambiguates
+// him from other people named Waqar Zaidi).
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: "AI Engineer",
+  description: profile.summary,
+  url: siteUrl,
+  email: profile.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Islamabad",
+    addressCountry: "PK",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Federal Urdu University of Arts, Sciences & Technology (FUUAST)",
+  },
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "PyTorch",
+    "Large Language Models",
+    "RAG",
+    "FastAPI",
+    "React",
+  ],
+  sameAs: [
+    profile.linkedin.url,
+    "https://github.com/waki44",
+    profile.instagram.url,
+  ],
+};
+
 // Runs before first paint: applies the saved/system theme to avoid FOUC.
 const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}})();`;
 
@@ -57,6 +94,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body className="flex min-h-full flex-col bg-white font-sans text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
         <a
