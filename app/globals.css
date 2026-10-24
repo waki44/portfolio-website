@@ -53,6 +53,10 @@ body {
 .hero-name {
   perspective: 600px;
 }
+.hero-name-word {
+  display: inline-block;
+  white-space: nowrap;
+}
 .hero-name-letter {
   display: inline-block;
   opacity: 0;

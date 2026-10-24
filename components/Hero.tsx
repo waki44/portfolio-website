@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
 import { profile } from "@/data/profile";
 
@@ -29,16 +30,35 @@ export default function Hero() {
               aria-label={profile.name}
               className="hero-name text-4xl font-bold tracking-tight sm:text-5xl"
             >
-              {profile.name.split("").map((letter, i) => (
-                <span
-                  key={i}
-                  aria-hidden="true"
-                  className="hero-name-letter"
-                  style={{ animationDelay: `${0.15 + i * 0.045}s` }}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              ))}
+              {(() => {
+                // Group letters by word and keep each word unbreakable, so the
+                // name wraps between words ("Raza Zaidi") and never inside
+                // one ("Zaid" / "i"). Previously every space was a non-breaking
+                // space, so the whole name was one long word and the browser
+                // broke it between letters, orphaning the final "i".
+                let letterIndex = 0;
+                const words = profile.name.split(" ");
+                return words.map((word, wi) => (
+                  <Fragment key={wi}>
+                    <span className="hero-name-word">
+                      {word.split("").map((letter, li) => {
+                        const delay = 0.15 + letterIndex++ * 0.045;
+                        return (
+                          <span
+                            key={li}
+                            aria-hidden="true"
+                            className="hero-name-letter"
+                            style={{ animationDelay: `${delay}s` }}
+                          >
+                            {letter}
+                          </span>
+                        );
+                      })}
+                    </span>
+                    {wi < words.length - 1 ? " " : null}
+                  </Fragment>
+                ));
+              })()}
             </h1>
             <p className="hero-portfolio mt-3 text-sm font-bold uppercase tracking-[0.35em] text-indigo-600 dark:text-indigo-400">
               Portfolio
