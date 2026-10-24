@@ -24,17 +24,35 @@ export default function Hero() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
               {profile.location}
             </p>
-            <h1 id="hero-heading" className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-              {profile.name}
+            <h1
+              id="hero-heading"
+              aria-label={profile.name}
+              className="hero-name text-4xl font-bold tracking-tight sm:text-5xl"
+            >
+              {profile.name.split("").map((letter, i) => (
+                <span
+                  key={i}
+                  aria-hidden="true"
+                  className="hero-name-letter"
+                  style={{ animationDelay: `${0.15 + i * 0.045}s` }}
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </span>
+              ))}
             </h1>
-            <p className="mt-3 text-xl font-medium text-zinc-700 dark:text-zinc-200">{profile.title}</p>
+            <p className="hero-portfolio mt-3 text-sm font-bold uppercase tracking-[0.35em] text-indigo-600 dark:text-indigo-400">
+              Portfolio
+            </p>
+            <p className="animate-fade-up mt-3 text-xl font-medium text-zinc-700 dark:text-zinc-200">
+              {profile.displayTitle}
+            </p>
           </div>
         </div>
 
         <p className="animate-fade-up mt-8 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
           I build AI-powered applications, LLM integrations, and Python automation tools — alongside full-stack web
-          and mobile software that is practical and maintainable. As an AI engineer in Islamabad, Pakistan, I help
-          teams turn LLM, RAG, and automation ideas into working products.
+          and mobile software that is practical and maintainable. I help teams turn LLM, RAG, and automation ideas
+          into working products.
         </p>
 
         <div className="animate-fade-up mt-10 flex flex-wrap gap-3">

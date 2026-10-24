@@ -48,6 +48,40 @@ body {
   animation: fade-up 0.6s ease both;
 }
 
+/* Hero intro animation, in the style of the reel the user shared:
+   metallic 3D letters flipping into place, then "Portfolio" fading in. */
+.hero-name {
+  perspective: 600px;
+}
+.hero-name-letter {
+  display: inline-block;
+  opacity: 0;
+  background: linear-gradient(180deg, #18181b 20%, #4f46e5 55%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-letter-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.dark .hero-name-letter {
+  background: linear-gradient(180deg, #fafafa 20%, #a5b4fc 55%, #71717a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@keyframes hero-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotateX(80deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+.hero-portfolio {
+  opacity: 0;
+  animation: fade-up 0.8s ease 1.4s both;
+}
+
 @keyframes typing-dot {
   0%,
   60%,
@@ -80,7 +114,10 @@ body {
     transition: none;
   }
   .animate-fade-up,
-  .typing-dot {
+  .typing-dot,
+  .hero-name-letter,
+  .hero-portfolio {
     animation: none;
+    opacity: 1;
   }
 }
