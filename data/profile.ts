@@ -22,7 +22,7 @@ export const profile = {
     url: "https://www.instagram.com/waki_44/",
   },
   summary:
-    "AI Engineer and BS AI student with hands-on experience building AI-powered applications, LLM integrations, computer-vision demos, Python automation tools, and full-stack applications. Experienced with Python, PyTorch, Hugging Face Transformers, FastAPI, REST APIs, and web/mobile interfaces. Long-term goal: specialising in ML engineering. Brings project ownership, team coordination, and a focus on practical, maintainable software.",
+    "Syed Waqar Raza Zaidi is an AI engineer and Python developer with hands-on experience building AI-powered applications, LLM integrations, computer-vision demos, Python automation tools, and full-stack applications. Experienced with Python, PyTorch, Hugging Face Transformers, FastAPI, REST APIs, and web/mobile interfaces. Long-term goal: specialising in ML engineering. Brings project ownership, team coordination, and a focus on practical, maintainable software.",
   cvPath: "/Syed_Waqar_Raza_Zaidi_CV.pdf",
 } as const;
 

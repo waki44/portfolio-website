@@ -50,9 +50,9 @@ export default function Hero() {
         </div>
 
         <p className="animate-fade-up mt-8 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-          I build AI-powered applications, LLM integrations, and Python automation tools — alongside full-stack web
-          and mobile software that is practical and maintainable. I help teams turn LLM, RAG, and automation ideas
-          into working products.
+          As a Python developer and AI engineer, I build AI-powered applications, LLM integrations, and Python
+          automation tools — alongside full-stack web and mobile software that is practical and maintainable. I
+          help teams turn LLM, RAG, and automation ideas into working products.
         </p>
 
         <div className="animate-fade-up mt-10 flex flex-wrap gap-3">
