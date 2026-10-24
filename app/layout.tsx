@@ -28,7 +28,18 @@ export const metadata: Metadata = {
   verification: {
     google: "UJN524NbaFLvwblfhlseRRld4NwQKsaiJz9QtUCwjiQ",
   },
-  keywords: ["AI Engineer", "Python", "Machine Learning", "LLM", "RAG", "FastAPI", "React", "Islamabad"],
+  keywords: [
+    "AI Engineer in Islamabad",
+    "AI Engineer Islamabad Pakistan",
+    "AI Engineer",
+    "Python",
+    "Machine Learning",
+    "LLM",
+    "RAG",
+    "FastAPI",
+    "React",
+    "Islamabad",
+  ],
   authors: [{ name: profile.name }],
   openGraph: {
     type: "website",
@@ -63,6 +74,10 @@ const personJsonLd = {
     "@type": "PostalAddress",
     addressLocality: "Islamabad",
     addressCountry: "PK",
+  },
+  workLocation: {
+    "@type": "City",
+    name: "Islamabad, Pakistan",
   },
   alumniOf: {
     "@type": "CollegeOrUniversity",

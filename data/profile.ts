@@ -1,7 +1,7 @@
 export const profile = {
   name: "Syed Waqar Raza Zaidi",
   initials: "SWZ",
-  title: "AI Engineer | Python Automation & Software Developer",
+  title: "AI Engineer in Islamabad | Python Automation & Software Developer",
   location: "Islamabad, Pakistan",
   email: "syedwaqarraza27@gmail.com",
   phone: { display: "+92 332-8569629", href: "tel:+923328569629" },
