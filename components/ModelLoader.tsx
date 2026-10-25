@@ -17,6 +17,9 @@ export default function ModelLoader() {
   const finishRef = useRef<() => void>(() => {});
 
   useEffect(() => {
+    // Read browser-only state after mount, and apply it on the next frame
+    // (deferred setState keeps React's cascading-render lint rule happy).
+    const timersList = timers.current;
     let alreadyShown = false;
     try {
       alreadyShown = sessionStorage.getItem(SESSION_KEY) === "1";
@@ -25,13 +28,11 @@ export default function ModelLoader() {
     }
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Repeat visits in the same session, and users who prefer less motion,
-    // never see the loader at all.
-    if (alreadyShown || reducedMotion) {
-      setStage("done");
-      return;
-    }
+    // never see the loader at all — "pending" already renders nothing, so
+    // no state change is needed on this path.
+    if (alreadyShown || reducedMotion) return;
 
-    setStage("show");
+    const showRaf = requestAnimationFrame(() => setStage("show"));
     document.body.style.overflow = "hidden";
 
     const finish = () => {
@@ -50,19 +51,20 @@ export default function ModelLoader() {
         if (next >= 100) {
           window.clearInterval(step);
           // "Model ready" pauses briefly, then the screen fades/slides away.
-          timers.current.push(window.setTimeout(() => setStage("fading"), 550));
-          timers.current.push(window.setTimeout(finish, 1150));
+          timersList.push(window.setTimeout(() => setStage("fading"), 550));
+          timersList.push(window.setTimeout(finish, 1150));
         }
         return next;
       });
     }, 40);
-    timers.current.push(step);
+    timersList.push(step);
 
     const skip = () => finish();
     window.addEventListener("keydown", skip);
     return () => {
+      cancelAnimationFrame(showRaf);
       window.clearInterval(step);
-      timers.current.forEach((t) => window.clearTimeout(t));
+      timersList.forEach((t) => window.clearTimeout(t));
       window.removeEventListener("keydown", skip);
       document.body.style.overflow = "";
     };

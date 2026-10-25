@@ -100,7 +100,7 @@ export default function ChatWidget() {
         aria-label="Chat with my AI assistant"
         aria-expanded={open}
         aria-controls="chat-panel"
-        className="fixed bottom-5 right-5 z-[60] inline-flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:bottom-6 sm:right-6"
+        className="fixed bottom-5 right-5 z-[60] inline-flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-cyan-400/30 transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 sm:bottom-6 sm:right-6"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           {open ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />}
@@ -122,7 +122,7 @@ export default function ChatWidget() {
               <button
                 type="button"
                 onClick={clearChat}
-                className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900"
               >
                 Clear chat
               </button>
@@ -130,7 +130,7 @@ export default function ChatWidget() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900"
               >
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M18 6 6 18M6 6l12 12" />
@@ -187,7 +187,7 @@ export default function ChatWidget() {
                     key={q}
                     type="button"
                     onClick={() => void send(q)}
-                    className="rounded-full border border-zinc-300 px-3 py-1.5 text-left text-xs font-medium text-zinc-700 transition hover:border-indigo-400 hover:text-indigo-700 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-indigo-500 dark:hover:text-indigo-300"
+                    className="rounded-full border border-zinc-300 px-3 py-1.5 text-left text-xs font-medium text-zinc-700 transition hover:border-cyan-300 hover:text-cyan-300 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-cyan-400 dark:hover:text-cyan-300"
                   >
                     {q}
                   </button>
@@ -208,12 +208,12 @@ export default function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about Syed…"
               autoComplete="off"
-              className="min-w-0 flex-1 rounded-full border border-zinc-300 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+              className="min-w-0 flex-1 rounded-full border border-zinc-300 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="inline-flex shrink-0 items-center rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex shrink-0 items-center rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 disabled:cursor-not-allowed disabled:opacity-60"
             >
               Send
             </button>

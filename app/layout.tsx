@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import ModelLoader from "@/components/ModelLoader";
+import CursorGlow from "@/components/CursorGlow";
+import TrainingPanel from "@/components/TrainingPanel";
 import { profile } from "@/data/profile";
 
 const siteUrl = "https://portfolio-website-sigma-ashen-90.vercel.app";
@@ -14,9 +16,11 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// JetBrains Mono: monospace for headings, labels, and terminal-style text.
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -124,18 +128,16 @@ const personJsonLd = {
   ],
 };
 
-// Runs before first paint: applies the saved/system theme to avoid FOUC.
-const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}})();`;
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // "dark" is permanent: the redesign is a dark-only theme, so the
+      // dark: variants below always apply and no theme toggle is needed.
+      className={`${geistSans.variable} ${jetbrains.variable} dark h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -143,8 +145,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="flex min-h-full flex-col bg-white font-sans text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <body className="flex min-h-full flex-col bg-[#050505] font-sans text-zinc-100">
         <ModelLoader />
+        <CursorGlow />
+        <TrainingPanel />
+        {/* Film-grain texture overlay, above content but below the loader. */}
+        <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[90]" />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-indigo-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"

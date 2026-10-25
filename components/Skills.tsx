@@ -1,4 +1,5 @@
 import Reveal, { SectionHeading } from "./Reveal";
+import SkillsGraph from "./SkillsGraph";
 import { skillGroups } from "@/data/profile";
 
 export default function Skills() {
@@ -10,28 +11,34 @@ export default function Skills() {
             id="skills-heading"
             eyebrow="Skills"
             title="Technical skills"
-            description="The languages, frameworks, and tools I use across AI, backend, web, and mobile development."
+            description="An interactive map of the tools I work with — hover a node to see what connects to it, click it for details."
           />
         </Reveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group) => (
-            <Reveal key={group.title}>
-              <article className="h-full rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
-                <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{group.title}</h3>
-                <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${group.title} skills`}>
+        <Reveal>
+          <SkillsGraph />
+        </Reveal>
+        {/* Full skill list, kept compact below the graph so nothing a
+            recruiter might search for is lost. */}
+        <Reveal className="mt-12">
+          <p className="mb-4 font-mono text-xs uppercase tracking-widest text-zinc-500">Full skill set</p>
+          <div className="space-y-4">
+            {skillGroups.map((group) => (
+              <div key={group.title}>
+                <p className="mb-2 text-xs font-semibold text-zinc-400">{group.title}</p>
+                <ul className="flex flex-wrap gap-1.5" aria-label={`${group.title} skills`}>
                   {group.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
+                      className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300"
                     >
                       {skill}
                     </li>
                   ))}
                 </ul>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

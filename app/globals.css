@@ -4,7 +4,19 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* JetBrains Mono for headings, labels, and terminal-style text. */
+  --font-mono: var(--font-jetbrains);
+}
+
+/* Design tokens: one place to change the theme. --color-* names become
+   utilities (bg-ink, text-accent, ...). --ease-out is the single easing
+   curve used by every animation on the site. */
+@theme {
+  --color-ink: #050505;
+  --color-panel: #0d0d12;
+  --color-accent: #22d3ee;
+  --color-accent-2: #8b5cf6;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -17,8 +29,14 @@ body {
 }
 
 ::selection {
-  background-color: rgb(79 70 229);
-  color: #fff;
+  background-color: #22d3ee;
+  color: #050505;
+}
+
+/* Film-grain texture overlay (paired with the .grain div in layout). */
+.grain {
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Scroll-triggered reveal (paired with components/Reveal.tsx) */
@@ -26,8 +44,8 @@ body {
   opacity: 0;
   transform: translateY(16px);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
 }
 .reveal.is-visible {
   opacity: 1;
@@ -46,44 +64,6 @@ body {
 }
 .animate-fade-up {
   animation: fade-up 0.6s ease both;
-}
-
-/* Hero intro animation, in the style of the reel the user shared:
-   metallic 3D letters flipping into place, then "Portfolio" fading in. */
-.hero-name {
-  perspective: 600px;
-}
-.hero-name-word {
-  display: inline-block;
-  white-space: nowrap;
-}
-.hero-name-letter {
-  display: inline-block;
-  opacity: 0;
-  background: linear-gradient(180deg, #18181b 20%, #4f46e5 55%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: hero-letter-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.dark .hero-name-letter {
-  background: linear-gradient(180deg, #fafafa 20%, #a5b4fc 55%, #71717a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@keyframes hero-letter-in {
-  from {
-    opacity: 0;
-    transform: translateY(28px) rotateX(80deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotateX(0deg);
-  }
-}
-.hero-portfolio {
-  opacity: 0;
-  animation: fade-up 0.8s ease 1.4s both;
 }
 
 @keyframes typing-dot {
@@ -118,9 +98,7 @@ body {
     transition: none;
   }
   .animate-fade-up,
-  .typing-dot,
-  .hero-name-letter,
-  .hero-portfolio {
+  .typing-dot {
     animation: none;
     opacity: 1;
   }

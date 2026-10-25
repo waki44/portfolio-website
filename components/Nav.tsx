@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
 import { profile } from "@/data/profile";
 
 const links = [
@@ -30,7 +29,7 @@ export default function Nav() {
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
           aria-label={`${profile.name} — home`}
         >
           <span
@@ -47,7 +46,7 @@ export default function Nav() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
               >
                 {link.label}
               </Link>
@@ -56,10 +55,9 @@ export default function Nav() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-900 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-900 md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -80,7 +78,7 @@ export default function Nav() {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-base font-medium text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-200 dark:hover:bg-zinc-900"
+                  className="block rounded-lg px-3 py-2.5 text-base font-medium text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:bg-zinc-900"
                 >
                   {link.label}
                 </Link>

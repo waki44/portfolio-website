@@ -11,6 +11,13 @@ export type Project = {
   github: string | null;
   githubNote: string | null;
   demo: string | null;
+  /**
+   * Real, measured metrics only (for example accuracy or latency). Left
+   * empty on purpose: no number is shown unless it is genuinely measured.
+   * Cards always show honest counts derived from the project itself
+   * (features, technologies) alongside any metrics added here later.
+   */
+  metrics?: { label: string; value: number }[];
 };
 
 export const projects: Project[] = [

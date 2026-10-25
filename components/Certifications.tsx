@@ -14,7 +14,7 @@ export default function Certifications() {
               <div className="flex h-full items-start gap-3 rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800">
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
+                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cyan-950 text-cyan-400 dark:bg-cyan-950 dark:text-cyan-300"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="8" r="6" />

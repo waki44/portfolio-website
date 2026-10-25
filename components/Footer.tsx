@@ -16,7 +16,7 @@ export default function Footer() {
             <li>
               <a
                 href={`mailto:${profile.email}`}
-                className="text-zinc-600 transition hover:text-indigo-600 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:text-indigo-400"
+                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
               >
                 Email
               </a>
@@ -27,7 +27,7 @@ export default function Footer() {
                   href={g.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-600 transition hover:text-indigo-600 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:text-indigo-400"
+                  className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
                 >
                   {g.label}
                 </a>
@@ -36,7 +36,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/#projects"
-                className="text-zinc-600 transition hover:text-indigo-600 focus-visible:outline-2 focus-visible:outline-indigo-600 dark:text-zinc-300 dark:hover:text-indigo-400"
+                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
               >
                 Projects
               </Link>

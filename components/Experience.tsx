@@ -13,7 +13,7 @@ export default function Experience() {
             <Reveal key={`${item.role}-${item.organisation}`} className="h-full">
               <article className="h-full rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
                 <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{item.role}</h3>
-                <p className="mt-1 text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                <p className="mt-1 text-sm font-medium text-cyan-400 dark:text-cyan-300">
                   {item.organisation}
                   {item.handle ? <span className="text-zinc-500 dark:text-zinc-400"> · {item.handle}</span> : null}
                 </p>

@@ -56,10 +56,10 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-10 max-w-2xl">
-      <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+      <p className="mb-2 font-mono text-sm font-semibold uppercase tracking-widest text-cyan-400">
         {eyebrow}
       </p>
-      <h2 id={id} className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
+      <h2 id={id} className="font-mono text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
         {title}
       </h2>
       {description ? <p className="mt-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{description}</p> : null}

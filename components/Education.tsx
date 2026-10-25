@@ -15,7 +15,7 @@ export default function Education() {
                 <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{item.qualification}</h3>
                 <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{item.institution}</p>
                 {item.detail ? (
-                  <p className="mt-3 inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                  <p className="mt-3 inline-block rounded-full bg-cyan-950 px-3 py-1 text-xs font-medium text-cyan-300 dark:bg-cyan-950 dark:text-cyan-300">
                     {item.detail}
                   </p>
                 ) : null}
