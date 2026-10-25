@@ -17,17 +17,18 @@ type Particle = {
 const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7", "#22d3ee"];
 
 /**
- * The hero name as a particle field: thousands of small dots form the name,
- * scatter when the mouse (or finger) comes near, and reassemble afterwards.
- * Custom canvas code on purpose — no Three.js, no tsParticles — so the
- * effect costs ~150 lines and zero extra dependencies. On mobile the
- * particle count drops automatically, and with reduced motion (or without
- * JavaScript) the plain name is shown instead.
+ * The hero name as a particle field: small dots fly in once on load and
+ * form the name, then stay perfectly still. The earlier mouse-scatter was
+ * removed: it made the name burst and flash every time the pointer (or
+ * finger) passed over it, which looked bad while reading. Custom canvas
+ * code on purpose — no Three.js, no tsParticles — so the effect costs
+ * ~150 lines and zero extra dependencies. On mobile the particle count
+ * drops automatically, and with reduced motion (or without JavaScript) the
+ * plain name is shown instead.
  */
 export default function ParticleName() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const mouseRef = useRef<{ x: number; y: number } | null>(null);
   // The hero is only animated while it is actually on screen.
   const visibleRef = useRef(true);
   const [mounted, setMounted] = useState(false);
@@ -119,27 +120,28 @@ export default function ParticleName() {
         const w = canvasEl.width;
         const h = canvasEl.height;
         ctx2d.clearRect(0, 0, w, h);
-        const mouse = mouseRef.current;
         particles.forEach((p) => {
-          // Ease back toward the letter shape.
+          // Ease toward the letter shape.
           p.vx += (p.tx - p.x) * 0.06;
           p.vy += (p.ty - p.y) * 0.06;
-          // Gentle scatter when the pointer comes close — playful, not an
-          // explosion: smaller radius and softer force than before.
-          if (mouse) {
-            const dx = p.x - mouse.x;
-            const dy = p.y - mouse.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < 70 && dist > 0.01) {
-              const force = ((70 - dist) / 70) * 3.5;
-              p.vx += (dx / dist) * force;
-              p.vy += (dy / dist) * force;
-            }
-          }
           p.vx *= 0.9;
           p.vy *= 0.9;
           p.x += p.vx;
           p.y += p.vy;
+          // Snap to rest once close and slow: without this the spring
+          // keeps wobbling around the target forever, so the name
+          // shimmers/flashes instead of sitting still.
+          if (
+            Math.abs(p.x - p.tx) < 0.6 &&
+            Math.abs(p.y - p.ty) < 0.6 &&
+            Math.abs(p.vx) < 0.3 &&
+            Math.abs(p.vy) < 0.3
+          ) {
+            p.x = p.tx;
+            p.y = p.ty;
+            p.vx = 0;
+            p.vy = 0;
+          }
           ctx2d.fillStyle = p.color;
           ctx2d.fillRect(p.x, p.y, p.size, p.size);
         });
@@ -147,19 +149,6 @@ export default function ParticleName() {
       raf = requestAnimationFrame(frame);
     }
 
-    function onMove(e: MouseEvent) {
-      const r = canvasEl.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
-    }
-    function onTouch(e: TouchEvent) {
-      const t = e.touches[0];
-      if (!t) return;
-      const r = canvasEl.getBoundingClientRect();
-      mouseRef.current = { x: t.clientX - r.left, y: t.clientY - r.top };
-    }
-    function onLeave() {
-      mouseRef.current = null;
-    }
     function onResize() {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(sample, 200);
@@ -188,18 +177,12 @@ export default function ParticleName() {
       visibleRef.current = entry.isIntersecting;
     });
     io.observe(container);
-    container.addEventListener("mousemove", onMove);
-    container.addEventListener("touchmove", onTouch, { passive: true });
-    container.addEventListener("mouseleave", onLeave);
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
       window.clearTimeout(resizeTimer);
       ro.disconnect();
       io.disconnect();
-      container.removeEventListener("mousemove", onMove);
-      container.removeEventListener("touchmove", onTouch);
-      container.removeEventListener("mouseleave", onLeave);
     };
   }, [mounted]);
 
