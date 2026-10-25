@@ -50,7 +50,11 @@ export default function AuroraBackground() {
       raf = 0;
       currentX += (targetX - currentX) * 0.05;
       currentY += (targetY - currentY) * 0.05;
-      layer.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+      // Read the ref fresh here: narrowing from the outer guard does not
+      // survive into this nested callback, so guard again.
+      const el = parallaxRef.current;
+      if (!el) return;
+      el.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
       // Keep easing only until settled, then stop: no loop while idle.
       if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
         raf = requestAnimationFrame(apply);
