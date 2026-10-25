@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
         <div>
           <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{profile.name}</p>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-zinc-300 dark:text-zinc-200">
             {profile.title} · {profile.location}
           </p>
         </div>
@@ -16,7 +16,7 @@ export default function Footer() {
             <li>
               <a
                 href={`mailto:${profile.email}`}
-                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
+                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:text-cyan-300"
               >
                 Email
               </a>
@@ -27,7 +27,7 @@ export default function Footer() {
                   href={g.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
+                  className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:text-cyan-300"
                 >
                   {g.label}
                 </a>
@@ -36,7 +36,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/#projects"
-                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:text-cyan-300"
+                className="text-zinc-600 transition hover:text-cyan-400 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:text-cyan-300"
               >
                 Projects
               </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
         </nav>
       </div>
       <div className="border-t border-zinc-200 py-4 dark:border-zinc-800">
-        <p className="mx-auto max-w-6xl px-4 text-xs text-zinc-500 dark:text-zinc-500 sm:px-6 lg:px-8">
+        <p className="mx-auto max-w-6xl px-4 text-xs text-zinc-300 dark:text-zinc-300 sm:px-6 lg:px-8">
           © 2026 {profile.name}. All rights reserved.
         </p>
       </div>

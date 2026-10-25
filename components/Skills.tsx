@@ -20,16 +20,16 @@ export default function Skills() {
         {/* Full skill list, kept compact below the graph so nothing a
             recruiter might search for is lost. */}
         <Reveal className="mt-12">
-          <p className="mb-4 font-mono text-xs uppercase tracking-widest text-zinc-500">Full skill set</p>
+          <p className="mb-4 font-mono text-xs uppercase tracking-widest text-zinc-300">Full skill set</p>
           <div className="space-y-4">
             {skillGroups.map((group) => (
               <div key={group.title}>
-                <p className="mb-2 text-xs font-semibold text-zinc-400">{group.title}</p>
+                <p className="mb-2 text-xs font-semibold text-zinc-200">{group.title}</p>
                 <ul className="flex flex-wrap gap-1.5" aria-label={`${group.title} skills`}>
                   {group.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300"
+                      className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-200"
                     >
                       {skill}
                     </li>

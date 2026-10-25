@@ -90,11 +90,11 @@ export default function ModelLoader() {
       }`}
     >
       <div className="w-full max-w-md font-mono text-sm sm:text-base">
-        <p className="text-zinc-500">&gt; boot sequence initiated</p>
+        <p className="text-zinc-300">&gt; boot sequence initiated</p>
         {progress > 15 && (
           <p className="mt-2 text-cyan-300">&gt; loading weights ... {Math.floor(progress)}%</p>
         )}
-        {progress > 55 && <p className="mt-2 text-zinc-400">&gt; compiling knowledge graph ...</p>}
+        {progress > 55 && <p className="mt-2 text-zinc-200">&gt; compiling knowledge graph ...</p>}
         {progress >= 100 && <p className="mt-2 text-emerald-400">&gt; model ready</p>}
         <p className="mt-6" aria-hidden="true">
           <span className="inline-block h-4 w-2 animate-pulse bg-cyan-300" />
@@ -105,7 +105,7 @@ export default function ModelLoader() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-8 text-xs text-zinc-600">click or press any key to skip</p>
+        <p className="mt-8 text-xs text-zinc-400">click or press any key to skip</p>
       </div>
     </div>
   );

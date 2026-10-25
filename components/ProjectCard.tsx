@@ -75,12 +75,12 @@ export default function ProjectCard({ project }: { project: Project }) {
             </Link>
           </h3>
           <p className="mt-1 text-sm font-medium text-cyan-400 dark:text-cyan-300">{project.tagline}</p>
-          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
+          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-200">{project.description}</p>
           <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies used">
             {project.technologies.slice(0, 4).map((tech) => (
               <li
                 key={tech}
-                className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300"
+                className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-200"
               >
                 {tech}
               </li>
@@ -92,7 +92,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 <p className="font-mono text-xl font-bold text-cyan-300">
                   <CountUp value={m.value} />
                 </p>
-                <p className="text-[11px] uppercase tracking-wider text-zinc-500">{m.label}</p>
+                <p className="text-[11px] uppercase tracking-wider text-zinc-300">{m.label}</p>
               </div>
             ))}
           </div>

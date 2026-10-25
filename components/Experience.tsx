@@ -15,9 +15,9 @@ export default function Experience() {
                 <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{item.role}</h3>
                 <p className="mt-1 text-sm font-medium text-cyan-400 dark:text-cyan-300">
                   {item.organisation}
-                  {item.handle ? <span className="text-zinc-500 dark:text-zinc-400"> · {item.handle}</span> : null}
+                  {item.handle ? <span className="text-zinc-300 dark:text-zinc-200"> · {item.handle}</span> : null}
                 </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-200">
                   {item.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}

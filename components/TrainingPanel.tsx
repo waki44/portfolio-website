@@ -106,7 +106,7 @@ export default function TrainingPanel() {
       aria-label="Reading progress as training epochs"
       className="fixed right-4 top-1/2 z-40 hidden w-[76px] -translate-y-1/2 flex-col items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/80 px-2 py-4 backdrop-blur lg:flex"
     >
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-zinc-300">
         Training
       </p>
       <svg viewBox="0 0 48 96" className="h-24 w-12" aria-hidden="true">
@@ -132,7 +132,7 @@ export default function TrainingPanel() {
         />
         {!reducedMotion && <circle ref={dotRef} r="3" fill="#22d3ee" />}
       </svg>
-      <p className="text-center font-mono text-[10px] leading-tight text-zinc-400">
+      <p className="text-center font-mono text-[10px] leading-tight text-zinc-200">
         Epoch {epoch + 1}/{EPOCHS.length}
         <span className="mt-0.5 block truncate text-zinc-300">{EPOCHS[epoch].label}</span>
       </p>

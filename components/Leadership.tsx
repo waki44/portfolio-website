@@ -36,7 +36,7 @@ export default function Leadership() {
             <Reveal key={item.title} as="li" className="h-full">
               <div className="h-full rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800">
                 <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{item.text}</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-200">{item.text}</p>
               </div>
             </Reveal>
           ))}

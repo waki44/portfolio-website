@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <header className="mt-8">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">{project.name}</h1>
         <p className="mt-2 text-lg font-medium text-indigo-600 dark:text-indigo-400">{project.tagline}</p>
-        <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
+        <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-200">{project.description}</p>
       </header>
 
       <div className="relative mt-8 aspect-[2/1] overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
@@ -76,11 +76,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </a>
         ) : null}
         {!project.github && !project.demo ? (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">No public repository or live demo link provided for this project yet.</p>
+          <p className="text-sm text-zinc-300 dark:text-zinc-200">No public repository or live demo link provided for this project yet.</p>
         ) : null}
       </div>
       {project.github && project.githubNote ? (
-        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-3 text-sm text-zinc-300 dark:text-zinc-200">
           Note: an exact repository URL was not provided — the button above links to the GitHub profile.
         </p>
       ) : null}
@@ -89,21 +89,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <h2 id="project-problem" className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           The problem
         </h2>
-        <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">{project.problem}</p>
+        <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-200">{project.problem}</p>
       </section>
 
       <section aria-labelledby="project-contribution" className="mt-10">
         <h2 id="project-contribution" className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           My contribution
         </h2>
-        <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">{project.contribution}</p>
+        <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-200">{project.contribution}</p>
       </section>
 
       <section aria-labelledby="project-features" className="mt-10">
         <h2 id="project-features" className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           Key features
         </h2>
-        <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-200">
           {project.features.map((feature) => (
             <li key={feature}>{feature}</li>
           ))}

@@ -51,7 +51,7 @@ export default function Contact() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
+    "w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-200 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
   const errorClass = "mt-1.5 text-sm text-red-600 dark:text-red-400";
 
   return (
@@ -70,7 +70,7 @@ export default function Contact() {
           <Reveal className="lg:col-span-2">
             <div className="space-y-6">
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Email</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">Email</h3>
                 <a
                   href={`mailto:${profile.email}`}
                   className="mt-1 block break-all text-base font-medium text-cyan-400 hover:underline focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-cyan-300"
@@ -79,7 +79,7 @@ export default function Contact() {
                 </a>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Phone</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">Phone</h3>
                 <a
                   href={profile.phone.href}
                   className="mt-1 block text-base font-medium text-cyan-400 hover:underline focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-cyan-300"
@@ -88,7 +88,7 @@ export default function Contact() {
                 </a>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">GitHub</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">GitHub</h3>
                 <ul className="mt-1 space-y-1">
                   {profile.github.map((g) => (
                     <li key={g.url}>
@@ -105,7 +105,7 @@ export default function Contact() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">LinkedIn</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">LinkedIn</h3>
                 <a
                   href={profile.linkedin.url}
                   target="_blank"
@@ -116,7 +116,7 @@ export default function Contact() {
                 </a>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Instagram</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">Instagram</h3>
                 <a
                   href={profile.instagram.url}
                   target="_blank"
@@ -127,8 +127,8 @@ export default function Contact() {
                 </a>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Location</h3>
-                <p className="mt-1 text-base text-zinc-600 dark:text-zinc-400">{profile.location}</p>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-zinc-300 dark:text-zinc-200">Location</h3>
+                <p className="mt-1 text-base text-zinc-600 dark:text-zinc-200">{profile.location}</p>
               </div>
             </div>
           </Reveal>

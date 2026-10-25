@@ -13,7 +13,7 @@ export default function Education() {
             <Reveal key={item.qualification} className="h-full">
               <article className="h-full rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
                 <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{item.qualification}</h3>
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{item.institution}</p>
+                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-200">{item.institution}</p>
                 {item.detail ? (
                   <p className="mt-3 inline-block rounded-full bg-cyan-950 px-3 py-1 text-xs font-medium text-cyan-300 dark:bg-cyan-950 dark:text-cyan-300">
                     {item.detail}

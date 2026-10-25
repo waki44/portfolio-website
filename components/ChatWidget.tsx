@@ -116,13 +116,13 @@ export default function ChatWidget() {
           <header className="flex items-center justify-between gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
             <div>
               <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Syed&apos;s AI Assistant</h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">Ask about skills, projects, education, or experience</p>
+              <p className="text-xs text-zinc-300 dark:text-zinc-200">Ask about skills, projects, education, or experience</p>
             </div>
             <div className="flex items-center gap-1">
               <button
                 type="button"
                 onClick={clearChat}
-                className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:bg-zinc-900"
               >
                 Clear chat
               </button>
@@ -130,7 +130,7 @@ export default function ChatWidget() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:bg-zinc-900"
               >
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M18 6 6 18M6 6l12 12" />
@@ -151,7 +151,7 @@ export default function ChatWidget() {
                 >
                   <p className="whitespace-pre-wrap">{msg.content}</p>
                   {msg.sources && msg.sources.length > 0 ? (
-                    <ul className="mt-2 space-y-0.5 border-t border-zinc-200 pt-2 text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                    <ul className="mt-2 space-y-0.5 border-t border-zinc-200 pt-2 text-xs text-zinc-300 dark:border-zinc-700 dark:text-zinc-200">
                       {msg.sources.map((source) => (
                         <li key={source}>Source: {source}</li>
                       ))}
@@ -180,7 +180,7 @@ export default function ChatWidget() {
 
           {messages.length <= 1 && (
             <div className="border-t border-zinc-200 px-4 py-3 dark:border-zinc-800">
-              <p className="mb-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">Suggested questions</p>
+              <p className="mb-2 text-xs font-medium text-zinc-300 dark:text-zinc-200">Suggested questions</p>
               <div className="flex flex-wrap gap-1.5">
                 {SUGGESTED_QUESTIONS.map((q) => (
                   <button
@@ -208,7 +208,7 @@ export default function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about Syed…"
               autoComplete="off"
-              className="min-w-0 flex-1 rounded-full border border-zinc-300 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+              className="min-w-0 flex-1 rounded-full border border-zinc-300 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-200 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
             />
             <button
               type="submit"

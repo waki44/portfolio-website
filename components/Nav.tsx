@@ -46,7 +46,7 @@ export default function Nav() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:text-zinc-200 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
               >
                 {link.label}
               </Link>
@@ -57,7 +57,7 @@ export default function Nav() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-900 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-cyan-400 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900 md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}

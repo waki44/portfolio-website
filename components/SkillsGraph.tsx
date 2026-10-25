@@ -152,9 +152,9 @@ export default function SkillsGraph() {
 
       {/* Detail panel */}
       <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5" aria-live="polite">
-        <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500">{selected.group}</p>
+        <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-300">{selected.group}</p>
         <h3 className="mt-1 font-mono text-lg font-bold text-zinc-50">{selected.label}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-zinc-400">{selected.detail}</p>
+        <p className="mt-2 text-sm leading-relaxed text-zinc-200">{selected.detail}</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {neighborsOf(selected.id).map((n) => (
             <button

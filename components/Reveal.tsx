@@ -62,7 +62,7 @@ export function SectionHeading({
       <h2 id={id} className="font-mono text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
         {title}
       </h2>
-      {description ? <p className="mt-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{description}</p> : null}
+      {description ? <p className="mt-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-200">{description}</p> : null}
     </div>
   );
 }
