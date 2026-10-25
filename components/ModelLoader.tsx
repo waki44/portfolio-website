@@ -41,6 +41,12 @@ export default function ModelLoader() {
       } catch {
         // Private mode etc: loader just shows again next visit. Harmless.
       }
+      // Restore scrolling HERE, not only in the effect cleanup: returning
+      // null does not unmount this component, so the cleanup below would
+      // never run after a normal finish — and the page would stay
+      // scroll-locked forever. That was a real bug: the loader vanished
+      // but the page could not scroll afterwards.
+      document.body.style.overflow = "";
       setStage("done");
     };
     finishRef.current = finish;
