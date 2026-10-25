@@ -19,19 +19,25 @@ const GRADIENT_TO = { r: 139, g: 92, b: 246 }; // violet
 
 /**
  * The hero name as a particle field: extra-bold capital letters, coloured
- * in one smooth cyan→violet gradient (the site accent) instead of random
- * colours — random colours broke the letterforms and made the name hard to
- * read. Dots fly in once on load and form the name, then stay perfectly
- * still. Custom canvas code on purpose — no Three.js, no tsParticles — so
- * the effect costs ~150 lines and zero extra dependencies. On mobile the
- * particle count drops automatically, and with reduced motion (or without
- * JavaScript) the plain name is shown instead.
+ * in one smooth cyan→violet gradient (the site accent). Dots fly in once
+ * on load and form the name — then, the moment every dot has settled, the
+ * name resolves into solid bold gradient text. That final solid state is
+ * the point: dotted letters alone stay hard to read and never look quite
+ * still, while solid text reads instantly and sits perfectly steady, with
+ * the mouse doing nothing to it. Custom canvas code on purpose — no
+ * Three.js, no tsParticles — so the effect costs ~150 lines and zero extra
+ * dependencies. On mobile the particle count drops automatically, and with
+ * reduced motion (or without JavaScript) the plain name is shown instead.
  */
 export default function ParticleName() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // The hero is only animated while it is actually on screen.
   const visibleRef = useRef(true);
+  // Once the dots have settled, the name is drawn solid and the loop idles
+  // (the canvas keeps its last frame, so nothing is redrawn).
+  const settledRef = useRef(false);
+  const fontSizeRef = useRef(48);
   const [mounted, setMounted] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -83,6 +89,8 @@ export default function ParticleName() {
       // Extra-bold capitals: the name must read clearly at a glance.
       const fontSize = Math.min(w / 13.5, 48);
       octx.font = `800 ${fontSize}px "JetBrains Mono", monospace`;
+      fontSizeRef.current = fontSize;
+      settledRef.current = false;
       // Left-aligned like the rest of the hero text, so the name sits in
       // its own place instead of floating centered in the column.
       octx.textAlign = "left";
@@ -127,12 +135,13 @@ export default function ParticleName() {
     }
 
     function frame() {
-      // Offscreen: keep the loop alive but skip all drawing work, so a
-      // scrolled-past hero costs nothing.
-      if (visibleRef.current) {
+      // Offscreen, or after the name resolved solid: keep the loop alive
+      // but skip all drawing work, so a settled hero costs nothing.
+      if (visibleRef.current && !settledRef.current) {
         const w = canvasEl.width;
         const h = canvasEl.height;
         ctx2d.clearRect(0, 0, w, h);
+        let allSettled = particles.length > 0;
         particles.forEach((p) => {
           // Ease toward the letter shape.
           p.vx += (p.tx - p.x) * 0.06;
@@ -155,9 +164,24 @@ export default function ParticleName() {
             p.vx = 0;
             p.vy = 0;
           }
+          if (p.x !== p.tx || p.y !== p.ty) allSettled = false;
           ctx2d.fillStyle = p.color;
           ctx2d.fillRect(p.x, p.y, p.size, p.size);
         });
+        // Every dot settled: resolve into solid bold gradient text, in
+        // exactly the same place and size as the dots formed.
+        if (allSettled) {
+          ctx2d.clearRect(0, 0, w, h);
+          const grad = ctx2d.createLinearGradient(0, 0, w, 0);
+          grad.addColorStop(0, "#22d3ee");
+          grad.addColorStop(1, "#8b5cf6");
+          ctx2d.fillStyle = grad;
+          ctx2d.font = `800 ${fontSizeRef.current}px "JetBrains Mono", monospace`;
+          ctx2d.textAlign = "left";
+          ctx2d.textBaseline = "middle";
+          ctx2d.fillText(profile.name.toUpperCase(), 0, h / 2);
+          settledRef.current = true;
+        }
       }
       raf = requestAnimationFrame(frame);
     }

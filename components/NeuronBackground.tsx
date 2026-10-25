@@ -80,14 +80,16 @@ export default function NeuronBackground() {
         const count = Math.max(3, Math.min(6, Math.round(h / 150)));
         const layer: Neuron[] = [];
         for (let i = 0; i < count; i++) {
+          // Small jitter only: columns must read as crisp vertical lines,
+          // not a scattered web.
           const y =
-            marginY + (i * (h - marginY * 2)) / (count - 1) + (Math.random() - 0.5) * 36;
+            marginY + (i * (h - marginY * 2)) / (count - 1) + (Math.random() - 0.5) * 24;
           const n: Neuron = {
             baseX: x,
             baseY: y,
             x,
             y,
-            r: 1.5 + Math.random() * 0.8,
+            r: 1.8 + Math.random() * 0.8,
             color: COLORS[Math.floor(Math.random() * COLORS.length)],
             phase: Math.random() * Math.PI * 2,
             flash: 0,
@@ -114,28 +116,30 @@ export default function NeuronBackground() {
       const w = canvasEl.width;
       const h = canvasEl.height;
       ctx2d.clearRect(0, 0, w, h);
-      // Connections: faint normally, brighter while a signal rides them.
+      // Connections: clearly visible normally, brighter while a signal
+      // rides them.
       const activeEdges = new Set(pulses.map((p) => p.edge));
       edges.forEach((e) => {
         const active = activeEdges.has(e);
-        ctx2d.strokeStyle = active ? "rgba(34, 211, 238, 0.45)" : "rgba(148, 163, 184, 0.16)";
+        ctx2d.strokeStyle = active ? "rgba(34, 211, 238, 0.6)" : "rgba(148, 163, 184, 0.28)";
         ctx2d.lineWidth = active ? 1.2 : 1;
         ctx2d.beginPath();
         ctx2d.moveTo(e.a.x, e.a.y);
         ctx2d.lineTo(e.b.x, e.b.y);
         ctx2d.stroke();
       });
-      // Signals racing along connections.
+      // Signals racing along connections: big and bright, so they read
+      // even in a still screenshot, not just in motion.
       pulses.forEach((p) => {
         const x = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * p.t;
         const y = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * p.t;
-        ctx2d.fillStyle = "rgba(165, 243, 252, 0.35)";
+        ctx2d.fillStyle = "rgba(165, 243, 252, 0.5)";
         ctx2d.beginPath();
-        ctx2d.arc(x, y, 6, 0, Math.PI * 2);
+        ctx2d.arc(x, y, 10, 0, Math.PI * 2);
         ctx2d.fill();
         ctx2d.fillStyle = "#ecfeff";
         ctx2d.beginPath();
-        ctx2d.arc(x, y, 2, 0, Math.PI * 2);
+        ctx2d.arc(x, y, 3, 0, Math.PI * 2);
         ctx2d.fill();
       });
       // Neurons: halo + core; a firing neuron glows bigger and whiter.
