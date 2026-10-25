@@ -114,20 +114,15 @@ export default function NeuronBackground() {
         }
         layers.push(layer);
       }
-      // Wire each neuron to the SAME row of the next layer plus one
-      // neighbouring row — never random rows. Random targets made lines
-      // cross into a web; same-row wiring keeps connections as clean,
-      // parallel, mostly-horizontal bands that read as layers.
+      // Wire each neuron ONLY to the same row of the next layer. Any
+      // neighbour-row wiring made lines cross into X shapes, and crossed
+      // lines are exactly what made the network read as a random web
+      // instead of clean layers. Same-row wiring gives zero crossings:
+      // parallel horizontal bands between distinct columns.
       for (let l = 0; l < layers.length - 1; l++) {
         const targets = layers[l + 1];
         layers[l].forEach((n, i) => {
-          const idxs = [i];
-          if (targets.length > 1) {
-            if (i === 0) idxs.push(1);
-            else if (i === targets.length - 1) idxs.push(targets.length - 2);
-            else idxs.push(Math.random() < 0.5 ? i - 1 : i + 1);
-          }
-          idxs.forEach((j) => edges.push({ a: n, b: targets[j] }));
+          edges.push({ a: n, b: targets[i] });
         });
       }
     }
@@ -170,11 +165,13 @@ export default function NeuronBackground() {
         ctx2d.fill();
       });
       // Firing rings: expanding circles around neurons that just fired.
+      // Thick and bright, so a firing neuron stands out from its
+      // neighbours even in a still frame.
       rings.forEach((r) => {
-        ctx2d.strokeStyle = `rgba(34, 211, 238, ${(1 - r.age / 30) * 0.6})`;
-        ctx2d.lineWidth = 1.2;
+        ctx2d.strokeStyle = `rgba(34, 211, 238, ${(1 - r.age / 30) * 0.8})`;
+        ctx2d.lineWidth = 2;
         ctx2d.beginPath();
-        ctx2d.arc(r.n.x, r.n.y, 4 + r.age * 0.8, 0, Math.PI * 2);
+        ctx2d.arc(r.n.x, r.n.y, 4 + r.age * 1.0, 0, Math.PI * 2);
         ctx2d.stroke();
       });
       // Neurons: halo + core; a firing neuron glows bigger and whiter.
@@ -188,7 +185,7 @@ export default function NeuronBackground() {
         ctx2d.fillStyle = n.flash > 0.3 ? "#ecfeff" : n.color;
         ctx2d.globalAlpha = 0.9;
         ctx2d.beginPath();
-        ctx2d.arc(n.x, n.y, n.r * (1 + n.flash), 0, Math.PI * 2);
+        ctx2d.arc(n.x, n.y, n.r * (1 + n.flash * 1.5), 0, Math.PI * 2);
         ctx2d.fill();
         ctx2d.globalAlpha = 1;
       });
@@ -206,13 +203,15 @@ export default function NeuronBackground() {
         r.age += 1;
       });
       rings = rings.filter((r) => r.age < 30);
-      // New signals several times a second, up to ~30 in flight at once.
-      if (time - lastSpawn > 100 && pulses.length < 30 && edges.length > 0) {
+      // New signals several times a second, up to ~40 in flight at once.
+      // Fast: each crossing takes ~0.3s, so traffic visibly races rather
+      // than drifts.
+      if (time - lastSpawn > 70 && pulses.length < 40 && edges.length > 0) {
         lastSpawn = time;
         pulses.push({
           edge: edges[Math.floor(Math.random() * edges.length)],
           t: 0,
-          speed: 0.02 + Math.random() * 0.015,
+          speed: 0.04 + Math.random() * 0.02,
           trail: [],
         });
       }
@@ -235,7 +234,7 @@ export default function NeuronBackground() {
             next.push({
               edge: outgoing[Math.floor(Math.random() * outgoing.length)],
               t: 0,
-              speed: 0.02 + Math.random() * 0.015,
+              speed: 0.04 + Math.random() * 0.02,
               trail: [],
             });
           }
