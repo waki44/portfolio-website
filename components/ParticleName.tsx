@@ -122,8 +122,10 @@ export default function ParticleName() {
         return {
           // Start near the target, not scattered across the whole canvas:
           // the name assembles quickly and cleanly instead of exploding in.
-          x: p.x + (Math.random() - 0.5) * 240,
-          y: p.y + (Math.random() - 0.5) * 240,
+          // Tighter start + stiffer spring than before, so the solid state
+          // arrives sooner even on slower machines.
+          x: p.x + (Math.random() - 0.5) * 160,
+          y: p.y + (Math.random() - 0.5) * 160,
           tx: p.x,
           ty: p.y,
           vx: 0,
@@ -143,9 +145,10 @@ export default function ParticleName() {
         ctx2d.clearRect(0, 0, w, h);
         let allSettled = particles.length > 0;
         particles.forEach((p) => {
-          // Ease toward the letter shape.
-          p.vx += (p.tx - p.x) * 0.06;
-          p.vy += (p.ty - p.y) * 0.06;
+          // Ease toward the letter shape (stiffer than before, so the
+          // name settles into its solid state sooner).
+          p.vx += (p.tx - p.x) * 0.09;
+          p.vy += (p.ty - p.y) * 0.09;
           p.vx *= 0.9;
           p.vy *= 0.9;
           p.x += p.vx;

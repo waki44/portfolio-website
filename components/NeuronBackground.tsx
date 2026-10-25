@@ -22,14 +22,11 @@ type Edge = {
   b: Neuron;
 };
 
-// A signal racing along one connection, with a short trail behind it so
-// the motion reads even in a still screenshot (a lone dot freezes as a
-// dot; a trail freezes as a streak).
+// A signal racing along one connection.
 type Pulse = {
   edge: Edge;
   t: number;
   speed: number;
-  trail: { x: number; y: number }[];
 };
 
 // An expanding ring around a neuron that just fired: the visible "this
@@ -44,14 +41,15 @@ const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7"];
 /**
  * A real neural network as the site background — not random stars. Neurons
  * sit in vertical layers (input → hidden → output) spanning the viewport,
- * in strict rows, wired to the same row and one neighbouring row of the
- * next layer, so connections run as clean parallel bands instead of a
- * crossing web. Bright signals race along the connections with fading
- * trails, and every neuron a signal reaches flashes and ripples a ring and
- * usually fires a signal of its own down the line, so the whole net looks
- * busy and fast. Dark-theme colours (cyan/violet on near-black), faint
- * enough to keep text readable. With reduced motion it draws one static
- * frame and stops.
+ * in strict rows, wired only to the same row of the next layer, so
+ * connections run as clean parallel bands with zero crossings — and each
+ * column sits in a soft vertical glow band, so the eye groups nodes into
+ * layers instead of following lines. Bright signals race along the
+ * connections as gradient streaks, and every neuron a signal reaches
+ * flashes, ripples a ring, and usually fires a signal of its own down the
+ * line, so the whole net looks busy and fast. Dark-theme colours
+ * (cyan/violet on near-black), faint enough to keep text readable. With
+ * reduced motion it draws one static frame and stops.
  */
 export default function NeuronBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -103,7 +101,7 @@ export default function NeuronBackground() {
             baseY: y,
             x,
             y,
-            r: 1.8 + Math.random() * 0.8,
+            r: 2.5 + Math.random() * 1.0,
             color: COLORS[Math.floor(Math.random() * COLORS.length)],
             phase: Math.random() * Math.PI * 2,
             flash: 0,
@@ -131,37 +129,54 @@ export default function NeuronBackground() {
       const w = canvasEl.width;
       const h = canvasEl.height;
       ctx2d.clearRect(0, 0, w, h);
-      // Connections: clearly visible normally, brighter while a signal
-      // rides them.
+      // Soft vertical glow bands behind each column: without them the
+      // eye follows the long horizontal lines and the columns vanish.
+      // The bands are what group the nodes into visible layers.
+      const layerXs = [...new Set(neurons.map((n) => n.baseX))].sort((a, b) => a - b);
+      layerXs.forEach((x) => {
+        const band = ctx2d.createLinearGradient(x - 55, 0, x + 55, 0);
+        band.addColorStop(0, "rgba(34, 211, 238, 0)");
+        band.addColorStop(0.5, "rgba(34, 211, 238, 0.05)");
+        band.addColorStop(1, "rgba(34, 211, 238, 0)");
+        ctx2d.fillStyle = band;
+        ctx2d.fillRect(x - 55, 0, 110, h);
+      });
+      // Connections: faint enough that nodes, not lines, dominate.
       const activeEdges = new Set(pulses.map((p) => p.edge));
       edges.forEach((e) => {
         const active = activeEdges.has(e);
-        ctx2d.strokeStyle = active ? "rgba(34, 211, 238, 0.6)" : "rgba(148, 163, 184, 0.28)";
+        ctx2d.strokeStyle = active ? "rgba(34, 211, 238, 0.6)" : "rgba(148, 163, 184, 0.22)";
         ctx2d.lineWidth = active ? 1.2 : 1;
         ctx2d.beginPath();
         ctx2d.moveTo(e.a.x, e.a.y);
         ctx2d.lineTo(e.b.x, e.b.y);
         ctx2d.stroke();
       });
-      // Signals racing along connections: fading trail first, then a big
-      // bright head, so motion reads even in a still frame.
+      // Signals as true streaks: a gradient line segment from just behind
+      // the head to the head itself. Discrete dots read as beads; a
+      // streak reads as motion even frozen in a screenshot.
       pulses.forEach((p) => {
-        p.trail.forEach((tp, i) => {
-          const fade = (i + 1) / p.trail.length;
-          ctx2d.fillStyle = `rgba(165, 243, 252, ${0.4 * fade})`;
-          ctx2d.beginPath();
-          ctx2d.arc(tp.x, tp.y, 2 + 2 * fade, 0, Math.PI * 2);
-          ctx2d.fill();
-        });
-        const x = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * p.t;
-        const y = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * p.t;
+        const t0 = Math.max(0, p.t - 0.18);
+        const x0 = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * t0;
+        const y0 = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * t0;
+        const x1 = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * p.t;
+        const y1 = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * p.t;
+        const streak = ctx2d.createLinearGradient(x0, y0, x1, y1);
+        streak.addColorStop(0, "rgba(165, 243, 252, 0)");
+        streak.addColorStop(1, "rgba(165, 243, 252, 0.9)");
+        ctx2d.strokeStyle = streak;
+        ctx2d.lineWidth = 2.5;
+        ctx2d.beginPath();
+        ctx2d.moveTo(x0, y0);
+        ctx2d.lineTo(x1, y1);
+        ctx2d.stroke();
         ctx2d.fillStyle = "rgba(165, 243, 252, 0.5)";
         ctx2d.beginPath();
-        ctx2d.arc(x, y, 10, 0, Math.PI * 2);
+        ctx2d.arc(x1, y1, 10, 0, Math.PI * 2);
         ctx2d.fill();
         ctx2d.fillStyle = "#ecfeff";
         ctx2d.beginPath();
-        ctx2d.arc(x, y, 3, 0, Math.PI * 2);
+        ctx2d.arc(x1, y1, 3, 0, Math.PI * 2);
         ctx2d.fill();
       });
       // Firing rings: expanding circles around neurons that just fired.
@@ -212,17 +227,11 @@ export default function NeuronBackground() {
           edge: edges[Math.floor(Math.random() * edges.length)],
           t: 0,
           speed: 0.04 + Math.random() * 0.02,
-          trail: [],
         });
       }
       const next: Pulse[] = [];
       pulses.forEach((p) => {
         p.t += p.speed;
-        // Record the head position for the trail.
-        const hx = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * Math.min(p.t, 1);
-        const hy = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * Math.min(p.t, 1);
-        p.trail.push({ x: hx, y: hy });
-        if (p.trail.length > 6) p.trail.shift();
         if (p.t >= 1) {
           // Arrival: the target neuron fires (flash + ring), and usually
           // forwards a signal of its own — chains of activity ripple
@@ -235,7 +244,6 @@ export default function NeuronBackground() {
               edge: outgoing[Math.floor(Math.random() * outgoing.length)],
               t: 0,
               speed: 0.04 + Math.random() * 0.02,
-              trail: [],
             });
           }
         } else {
