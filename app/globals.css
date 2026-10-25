@@ -12,7 +12,7 @@
    utilities (bg-ink, text-accent, ...). --ease-out is the single easing
    curve used by every animation on the site. */
 @theme {
-  --color-ink: #050505;
+  --color-ink: #070b14;
   --color-panel: #0d0d12;
   --color-accent: #22d3ee;
   --color-accent-2: #8b5cf6;
@@ -101,5 +101,153 @@ body {
   .typing-dot {
     animation: none;
     opacity: 1;
+  }
+}
+
+/* AI Aurora Flow background (paired with components/AuroraBackground.tsx).
+   Four large blurred light fields drift and morph slowly over midnight
+   navy; a few tiny motes float inside them. Pure CSS: transform/opacity
+   only, so the animation is compositor-friendly and costs no React
+   renders. Durations differ per blob so the motion never visibly loops. */
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+.aurora-blob-1 {
+  width: 55vw;
+  height: 55vw;
+  left: -10%;
+  top: -15%;
+  background: radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.5), transparent 65%);
+  animation: aurora-drift-1 38s ease-in-out infinite alternate;
+}
+.aurora-blob-2 {
+  width: 48vw;
+  height: 48vw;
+  right: -12%;
+  bottom: -18%;
+  background: radial-gradient(circle at 60% 40%, rgba(139, 92, 246, 0.45), transparent 65%);
+  animation: aurora-drift-2 46s ease-in-out infinite alternate;
+}
+.aurora-blob-3 {
+  width: 42vw;
+  height: 42vw;
+  left: 45%;
+  top: 35%;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.42), transparent 65%);
+  animation: aurora-drift-3 54s ease-in-out infinite alternate;
+}
+.aurora-blob-4 {
+  width: 38vw;
+  height: 38vw;
+  left: 5%;
+  bottom: -10%;
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.35), transparent 65%);
+  animation: aurora-drift-4 42s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift-1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    border-radius: 42% 58% 63% 37% / 45% 42% 58% 55%;
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.12);
+    border-radius: 58% 42% 37% 63% / 55% 58% 42% 45%;
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(-4vw, 7vh, 0) scale(1.05);
+    border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
+    opacity: 0.85;
+  }
+}
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+    border-radius: 55% 45% 55% 45% / 40% 60% 40% 60%;
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(-5vw, -6vh, 0) scale(0.95);
+    border-radius: 40% 60% 45% 55% / 60% 45% 55% 40%;
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(4vw, 3vh, 0) scale(1.1);
+    border-radius: 60% 40% 60% 40% / 45% 55% 45% 55%;
+    opacity: 0.9;
+  }
+}
+@keyframes aurora-drift-3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    border-radius: 50% 50% 55% 45% / 55% 45% 55% 45%;
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(-7vw, 5vh, 0) scale(1.15);
+    border-radius: 45% 55% 40% 60% / 50% 60% 40% 50%;
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(5vw, -4vh, 0) scale(1);
+    border-radius: 58% 42% 58% 42% / 42% 58% 42% 58%;
+    opacity: 0.8;
+  }
+}
+@keyframes aurora-drift-4 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(5vw, -5vh, 0) scale(1.1);
+    border-radius: 60% 40% 45% 55% / 40% 60% 40% 60%;
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(-3vw, 6vh, 0) scale(0.95);
+    border-radius: 50% 50% 60% 40% / 60% 40% 60% 40%;
+    opacity: 0.75;
+  }
+}
+.aurora-mote {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.45;
+  animation: aurora-mote-float linear infinite;
+}
+@keyframes aurora-mote-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(12px, -24px, 0);
+    opacity: 0.6;
+  }
+}
+/* Mobile: softer blur, one fewer blob, half the motes. */
+@media (max-width: 639px) {
+  .aurora-blob {
+    filter: blur(60px);
+  }
+  .aurora-blob-4 {
+    display: none;
+  }
+  .aurora-mote:nth-child(n + 5) {
+    display: none;
+  }
+}
+/* Reduced motion: the same composition, frozen — a static aurora. */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob,
+  .aurora-mote {
+    animation: none;
   }
 }

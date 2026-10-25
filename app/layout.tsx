@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import ModelLoader from "@/components/ModelLoader";
 import TrainingPanel from "@/components/TrainingPanel";
-import NeuronBackground from "@/components/NeuronBackground";
+import AuroraBackground from "@/components/AuroraBackground";
 import ClickSmoke from "@/components/ClickSmoke";
 import { profile } from "@/data/profile";
 
@@ -146,10 +146,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="flex min-h-full flex-col bg-[#050505] font-sans text-zinc-100">
+      <body className="flex min-h-full flex-col bg-[#070b14] font-sans text-zinc-100">
         <ModelLoader />
         <TrainingPanel />
-        <NeuronBackground />
+        <AuroraBackground />
         <ClickSmoke />
         {/* Film-grain texture overlay, above content but below the loader. */}
         <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[90]" />
