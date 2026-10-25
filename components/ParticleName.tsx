@@ -74,13 +74,16 @@ export default function ParticleName() {
       off.height = h;
       const octx = off.getContext("2d");
       if (!octx) return;
-      const fontSize = Math.min(w / 7, 120);
+      const fontSize = Math.min(w / 10, 76);
       octx.font = `700 ${fontSize}px "JetBrains Mono", monospace`;
-      octx.textAlign = "center";
+      // Left-aligned like the rest of the hero text (location, subtitle,
+      // buttons), so the name sits in its own place instead of floating
+      // centered in the column.
+      octx.textAlign = "left";
       octx.textBaseline = "middle";
       octx.fillStyle = "#fff";
-      octx.fillText("Syed Waqar", w / 2, h / 2 - fontSize * 0.55);
-      octx.fillText("Raza Zaidi", w / 2, h / 2 + fontSize * 0.55);
+      octx.fillText("Syed Waqar", 0, h / 2 - fontSize * 0.6);
+      octx.fillText("Raza Zaidi", 0, h / 2 + fontSize * 0.6);
       const data = octx.getImageData(0, 0, w, h).data;
       const isMobile = w < 640;
       const step = isMobile ? 6 : 4;
@@ -197,7 +200,7 @@ export default function ParticleName() {
   }
 
   return (
-    <div ref={containerRef} className="h-[220px] w-full sm:h-[260px]">
+    <div ref={containerRef} className="h-[120px] w-full sm:h-[190px]">
       <h1 id="hero-heading" className="sr-only">
         {profile.name}
       </h1>

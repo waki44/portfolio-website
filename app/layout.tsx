@@ -7,6 +7,7 @@ import ChatWidget from "@/components/ChatWidget";
 import ModelLoader from "@/components/ModelLoader";
 import CursorGlow from "@/components/CursorGlow";
 import TrainingPanel from "@/components/TrainingPanel";
+import NeuronBackground from "@/components/NeuronBackground";
 import { profile } from "@/data/profile";
 
 const siteUrl = "https://portfolio-website-sigma-ashen-90.vercel.app";
@@ -149,6 +150,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ModelLoader />
         <CursorGlow />
         <TrainingPanel />
+        <NeuronBackground />
         {/* Film-grain texture overlay, above content but below the loader. */}
         <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[90]" />
         <a
