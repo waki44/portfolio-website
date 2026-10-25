@@ -22,11 +22,21 @@ type Edge = {
   b: Neuron;
 };
 
-// A signal racing along one connection.
+// A signal racing along one connection, with a short trail behind it so
+// the motion reads even in a still screenshot (a lone dot freezes as a
+// dot; a trail freezes as a streak).
 type Pulse = {
   edge: Edge;
   t: number;
   speed: number;
+  trail: { x: number; y: number }[];
+};
+
+// An expanding ring around a neuron that just fired: the visible "this
+// one activated" moment, readable even in a screenshot.
+type Ring = {
+  n: Neuron;
+  age: number;
 };
 
 const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7"];
@@ -34,12 +44,14 @@ const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7"];
 /**
  * A real neural network as the site background — not random stars. Neurons
  * sit in vertical layers (input → hidden → output) spanning the viewport,
- * wired to the next layer, bobbing gently in place so the structure stays
- * readable. Bright signals race along the connections many times a second,
- * and every neuron a signal reaches flashes and usually fires a signal of
- * its own down the line, so the whole net looks busy and fast. Dark-theme
- * colours (cyan/violet on near-black), faint enough to keep text readable.
- * With reduced motion it draws one static frame and stops.
+ * in strict rows, wired to the same row and one neighbouring row of the
+ * next layer, so connections run as clean parallel bands instead of a
+ * crossing web. Bright signals race along the connections with fading
+ * trails, and every neuron a signal reaches flashes and ripples a ring and
+ * usually fires a signal of its own down the line, so the whole net looks
+ * busy and fast. Dark-theme colours (cyan/violet on near-black), faint
+ * enough to keep text readable. With reduced motion it draws one static
+ * frame and stops.
  */
 export default function NeuronBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -58,6 +70,7 @@ export default function NeuronBackground() {
     let neurons: Neuron[] = [];
     let edges: Edge[] = [];
     let pulses: Pulse[] = [];
+    let rings: Ring[] = [];
     let raf = 0;
     let resizeTimer = 0;
     let lastSpawn = 0;
@@ -74,16 +87,17 @@ export default function NeuronBackground() {
       neurons = [];
       edges = [];
       pulses = [];
+      rings = [];
       const layers: Neuron[][] = [];
       for (let l = 0; l < layerCount; l++) {
         const x = marginX + (l * (w - marginX * 2)) / (layerCount - 1);
         const count = Math.max(3, Math.min(6, Math.round(h / 150)));
         const layer: Neuron[] = [];
         for (let i = 0; i < count; i++) {
-          // Small jitter only: columns must read as crisp vertical lines,
-          // not a scattered web.
+          // Tiny jitter only: rows must stay aligned across layers, or
+          // the columns stop reading as columns.
           const y =
-            marginY + (i * (h - marginY * 2)) / (count - 1) + (Math.random() - 0.5) * 24;
+            marginY + (i * (h - marginY * 2)) / (count - 1) + (Math.random() - 0.5) * 8;
           const n: Neuron = {
             baseX: x,
             baseY: y,
@@ -100,14 +114,20 @@ export default function NeuronBackground() {
         }
         layers.push(layer);
       }
-      // Wire each neuron to 2–3 neurons of the next layer (never the whole
-      // layer: a full mesh would be unreadable noise).
+      // Wire each neuron to the SAME row of the next layer plus one
+      // neighbouring row — never random rows. Random targets made lines
+      // cross into a web; same-row wiring keeps connections as clean,
+      // parallel, mostly-horizontal bands that read as layers.
       for (let l = 0; l < layers.length - 1; l++) {
         const targets = layers[l + 1];
-        layers[l].forEach((n) => {
-          const k = Math.min(targets.length, 2 + Math.floor(Math.random() * 2));
-          const shuffled = [...targets].sort(() => Math.random() - 0.5);
-          for (let i = 0; i < k; i++) edges.push({ a: n, b: shuffled[i] });
+        layers[l].forEach((n, i) => {
+          const idxs = [i];
+          if (targets.length > 1) {
+            if (i === 0) idxs.push(1);
+            else if (i === targets.length - 1) idxs.push(targets.length - 2);
+            else idxs.push(Math.random() < 0.5 ? i - 1 : i + 1);
+          }
+          idxs.forEach((j) => edges.push({ a: n, b: targets[j] }));
         });
       }
     }
@@ -128,9 +148,16 @@ export default function NeuronBackground() {
         ctx2d.lineTo(e.b.x, e.b.y);
         ctx2d.stroke();
       });
-      // Signals racing along connections: big and bright, so they read
-      // even in a still screenshot, not just in motion.
+      // Signals racing along connections: fading trail first, then a big
+      // bright head, so motion reads even in a still frame.
       pulses.forEach((p) => {
+        p.trail.forEach((tp, i) => {
+          const fade = (i + 1) / p.trail.length;
+          ctx2d.fillStyle = `rgba(165, 243, 252, ${0.4 * fade})`;
+          ctx2d.beginPath();
+          ctx2d.arc(tp.x, tp.y, 2 + 2 * fade, 0, Math.PI * 2);
+          ctx2d.fill();
+        });
         const x = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * p.t;
         const y = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * p.t;
         ctx2d.fillStyle = "rgba(165, 243, 252, 0.5)";
@@ -141,6 +168,14 @@ export default function NeuronBackground() {
         ctx2d.beginPath();
         ctx2d.arc(x, y, 3, 0, Math.PI * 2);
         ctx2d.fill();
+      });
+      // Firing rings: expanding circles around neurons that just fired.
+      rings.forEach((r) => {
+        ctx2d.strokeStyle = `rgba(34, 211, 238, ${(1 - r.age / 30) * 0.6})`;
+        ctx2d.lineWidth = 1.2;
+        ctx2d.beginPath();
+        ctx2d.arc(r.n.x, r.n.y, 4 + r.age * 0.8, 0, Math.PI * 2);
+        ctx2d.stroke();
       });
       // Neurons: halo + core; a firing neuron glows bigger and whiter.
       neurons.forEach((n) => {
@@ -160,13 +195,17 @@ export default function NeuronBackground() {
     }
 
     function frame(time: number) {
-      // Gentle bob in place: the network stays readable, nothing wanders
+      // Tiny bob in place: rows and columns stay aligned, nothing wanders
       // off its layer.
       neurons.forEach((n) => {
-        n.x = n.baseX + Math.sin(time / 1800 + n.phase) * 6;
-        n.y = n.baseY + Math.cos(time / 1500 + n.phase) * 8;
+        n.x = n.baseX + Math.sin(time / 1800 + n.phase) * 3;
+        n.y = n.baseY + Math.cos(time / 1500 + n.phase) * 3;
         n.flash = Math.max(0, n.flash - 0.03);
       });
+      rings.forEach((r) => {
+        r.age += 1;
+      });
+      rings = rings.filter((r) => r.age < 30);
       // New signals several times a second, up to ~30 in flight at once.
       if (time - lastSpawn > 100 && pulses.length < 30 && edges.length > 0) {
         lastSpawn = time;
@@ -174,21 +213,30 @@ export default function NeuronBackground() {
           edge: edges[Math.floor(Math.random() * edges.length)],
           t: 0,
           speed: 0.02 + Math.random() * 0.015,
+          trail: [],
         });
       }
       const next: Pulse[] = [];
       pulses.forEach((p) => {
         p.t += p.speed;
+        // Record the head position for the trail.
+        const hx = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * Math.min(p.t, 1);
+        const hy = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * Math.min(p.t, 1);
+        p.trail.push({ x: hx, y: hy });
+        if (p.trail.length > 6) p.trail.shift();
         if (p.t >= 1) {
-          // Arrival: the target neuron fires, and usually forwards a
-          // signal of its own — chains of activity ripple through layers.
+          // Arrival: the target neuron fires (flash + ring), and usually
+          // forwards a signal of its own — chains of activity ripple
+          // through layers.
           p.edge.b.flash = 1;
+          rings.push({ n: p.edge.b, age: 0 });
           const outgoing = edges.filter((e) => e.a === p.edge.b);
           if (outgoing.length > 0 && Math.random() < 0.6) {
             next.push({
               edge: outgoing[Math.floor(Math.random() * outgoing.length)],
               t: 0,
               speed: 0.02 + Math.random() * 0.015,
+              trail: [],
             });
           }
         } else {
