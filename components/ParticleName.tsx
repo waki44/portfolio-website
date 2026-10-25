@@ -14,17 +14,18 @@ type Particle = {
   color: string;
 };
 
-const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7", "#22d3ee"];
+const GRADIENT_FROM = { r: 34, g: 211, b: 238 }; // cyan
+const GRADIENT_TO = { r: 139, g: 92, b: 246 }; // violet
 
 /**
- * The hero name as a particle field: small dots fly in once on load and
- * form the name, then stay perfectly still. The earlier mouse-scatter was
- * removed: it made the name burst and flash every time the pointer (or
- * finger) passed over it, which looked bad while reading. Custom canvas
- * code on purpose — no Three.js, no tsParticles — so the effect costs
- * ~150 lines and zero extra dependencies. On mobile the particle count
- * drops automatically, and with reduced motion (or without JavaScript) the
- * plain name is shown instead.
+ * The hero name as a particle field: extra-bold capital letters, coloured
+ * in one smooth cyan→violet gradient (the site accent) instead of random
+ * colours — random colours broke the letterforms and made the name hard to
+ * read. Dots fly in once on load and form the name, then stay perfectly
+ * still. Custom canvas code on purpose — no Three.js, no tsParticles — so
+ * the effect costs ~150 lines and zero extra dependencies. On mobile the
+ * particle count drops automatically, and with reduced motion (or without
+ * JavaScript) the plain name is shown instead.
  */
 export default function ParticleName() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -79,18 +80,21 @@ export default function ParticleName() {
       if (!octx) return;
       // One line, normal heading size (like the original hero: max 48px),
       // fitted to the container so it never overflows on mobile either.
+      // Extra-bold capitals: the name must read clearly at a glance.
       const fontSize = Math.min(w / 13.5, 48);
-      octx.font = `700 ${fontSize}px "JetBrains Mono", monospace`;
+      octx.font = `800 ${fontSize}px "JetBrains Mono", monospace`;
       // Left-aligned like the rest of the hero text, so the name sits in
       // its own place instead of floating centered in the column.
       octx.textAlign = "left";
       octx.textBaseline = "middle";
       octx.fillStyle = "#fff";
-      octx.fillText(profile.name, 0, h / 2);
+      octx.fillText(profile.name.toUpperCase(), 0, h / 2);
       const data = octx.getImageData(0, 0, w, h).data;
       const isMobile = w < 640;
-      const step = isMobile ? 3 : 4;
-      const cap = isMobile ? 800 : 2000;
+      // Dense sampling + bigger dots: bold letterforms, not thin dotted
+      // outlines that are hard to read.
+      const step = isMobile ? 2 : 3;
+      const cap = isMobile ? 1200 : 2200;
       const points: { x: number; y: number }[] = [];
       for (let y = 0; y < h; y += step) {
         for (let x = 0; x < w; x += step) {
@@ -99,18 +103,27 @@ export default function ParticleName() {
       }
       // Thin out randomly if the name sampled more particles than the cap.
       while (points.length > cap) points.splice(Math.floor(Math.random() * points.length), 1);
-      particles = points.map((p) => ({
-        // Start near the target, not scattered across the whole canvas:
-        // the name assembles quickly and cleanly instead of exploding in.
-        x: p.x + (Math.random() - 0.5) * 240,
-        y: p.y + (Math.random() - 0.5) * 240,
-        tx: p.x,
-        ty: p.y,
-        vx: 0,
-        vy: 0,
-        size: 1.2 + Math.random() * 1.3,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      }));
+      particles = points.map((p) => {
+        // One smooth gradient across the name (left cyan → right violet):
+        // neighbouring dots share a colour, so letterforms stay coherent
+        // and readable, unlike the old random colour mix.
+        const t = w > 0 ? p.x / w : 0;
+        const r = Math.round(GRADIENT_FROM.r + (GRADIENT_TO.r - GRADIENT_FROM.r) * t);
+        const g = Math.round(GRADIENT_FROM.g + (GRADIENT_TO.g - GRADIENT_FROM.g) * t);
+        const b = Math.round(GRADIENT_FROM.b + (GRADIENT_TO.b - GRADIENT_FROM.b) * t);
+        return {
+          // Start near the target, not scattered across the whole canvas:
+          // the name assembles quickly and cleanly instead of exploding in.
+          x: p.x + (Math.random() - 0.5) * 240,
+          y: p.y + (Math.random() - 0.5) * 240,
+          tx: p.x,
+          ty: p.y,
+          vx: 0,
+          vy: 0,
+          size: 1.8 + Math.random() * 1.0,
+          color: `rgb(${r}, ${g}, ${b})`,
+        };
+      });
     }
 
     function frame() {
@@ -190,7 +203,7 @@ export default function ParticleName() {
   // motion. The canvas replaces it only once the browser is ready.
   if (!mounted || reducedMotion) {
     return (
-      <h1 id="hero-heading" aria-label={profile.name} className="font-mono text-4xl font-bold tracking-tight sm:text-5xl">
+      <h1 id="hero-heading" aria-label={profile.name} className="font-mono text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">
         {profile.name}
       </h1>
     );
