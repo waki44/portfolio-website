@@ -42,11 +42,19 @@ export default function TrainingPanel() {
 
   useEffect(() => {
     let ticking = false;
+    // Last values actually rendered: scroll fires constantly, but the panel
+    // only shows progress to 2 decimals and one of 8 epochs, so skip
+    // re-renders when neither visible value changed.
+    const prev = { p: -1, e: -1 };
     function update() {
       ticking = false;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
-      setProgress(p);
+      const raw = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+      const p = Math.round(raw * 100) / 100;
+      if (p !== prev.p) {
+        prev.p = p;
+        setProgress(p);
+      }
       // Current epoch: the last section whose top has crossed the middle
       // of the viewport.
       let current = 0;
@@ -54,7 +62,10 @@ export default function TrainingPanel() {
         const el = document.getElementById(ep.id);
         if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.5) current = i;
       });
-      setEpoch(current);
+      if (current !== prev.e) {
+        prev.e = current;
+        setEpoch(current);
+      }
       // Move the glowing tip dot along the curve (pathLength is normalized
       // to 1, so the scroll fraction maps directly onto the curve).
       const path = pathRef.current;

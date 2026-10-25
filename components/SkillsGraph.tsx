@@ -23,6 +23,8 @@ export default function SkillsGraph() {
   const activeId = hoveredId ?? selectedId;
   const activeNeighbors = useMemo(() => new Set(neighborsOf(activeId).map((n) => n.id)), [activeId]);
   const selected = byId.get(selectedId) ?? graphNodes[0];
+  // The graph only animates while it is actually on screen.
+  const visibleRef = useRef(true);
 
   // Gentle float: each node drifts on a slow sine wave, and every edge
   // endpoint is recomputed from the same offsets, so lines stay attached.
@@ -36,9 +38,15 @@ export default function SkillsGraph() {
       sizeRef.current = { w: Math.max(r.width, 1), h: Math.max(r.height, 1) };
     });
     ro.observe(container);
+    const io = new IntersectionObserver(([entry]) => {
+      visibleRef.current = entry.isIntersecting;
+    });
+    io.observe(container);
     let raf = 0;
     const loop = (t: number) => {
-      const time = t / 1000;
+      // Offscreen: keep the loop alive but skip all transform writes.
+      if (visibleRef.current) {
+        const time = t / 1000;
       const offsets = new Map<string, { dx: number; dy: number }>();
       graphNodes.forEach((n) => {
         const dx = Math.sin(time * 0.6 + n.phase) * 4;
@@ -59,12 +67,14 @@ export default function SkillsGraph() {
         line.setAttribute("x2", String(nb.x + (ob.dx / sizeRef.current.w) * 100));
         line.setAttribute("y2", String(nb.y + (ob.dy / sizeRef.current.h) * 100));
       });
+      }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
     };
   }, []);
 

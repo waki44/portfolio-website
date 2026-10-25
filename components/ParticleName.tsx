@@ -28,6 +28,8 @@ export default function ParticleName() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
+  // The hero is only animated while it is actually on screen.
+  const visibleRef = useRef(true);
   const [mounted, setMounted] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -74,20 +76,20 @@ export default function ParticleName() {
       off.height = h;
       const octx = off.getContext("2d");
       if (!octx) return;
-      const fontSize = Math.min(w / 10, 76);
+      // One line, normal heading size (like the original hero: max 48px),
+      // fitted to the container so it never overflows on mobile either.
+      const fontSize = Math.min(w / 13.5, 48);
       octx.font = `700 ${fontSize}px "JetBrains Mono", monospace`;
-      // Left-aligned like the rest of the hero text (location, subtitle,
-      // buttons), so the name sits in its own place instead of floating
-      // centered in the column.
+      // Left-aligned like the rest of the hero text, so the name sits in
+      // its own place instead of floating centered in the column.
       octx.textAlign = "left";
       octx.textBaseline = "middle";
       octx.fillStyle = "#fff";
-      octx.fillText("Syed Waqar", 0, h / 2 - fontSize * 0.6);
-      octx.fillText("Raza Zaidi", 0, h / 2 + fontSize * 0.6);
+      octx.fillText(profile.name, 0, h / 2);
       const data = octx.getImageData(0, 0, w, h).data;
       const isMobile = w < 640;
-      const step = isMobile ? 6 : 4;
-      const cap = isMobile ? 900 : 2600;
+      const step = isMobile ? 3 : 4;
+      const cap = isMobile ? 800 : 2000;
       const points: { x: number; y: number }[] = [];
       for (let y = 0; y < h; y += step) {
         for (let x = 0; x < w; x += step) {
@@ -97,8 +99,10 @@ export default function ParticleName() {
       // Thin out randomly if the name sampled more particles than the cap.
       while (points.length > cap) points.splice(Math.floor(Math.random() * points.length), 1);
       particles = points.map((p) => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
+        // Start near the target, not scattered across the whole canvas:
+        // the name assembles quickly and cleanly instead of exploding in.
+        x: p.x + (Math.random() - 0.5) * 240,
+        y: p.y + (Math.random() - 0.5) * 240,
         tx: p.x,
         ty: p.y,
         vx: 0,
@@ -109,32 +113,37 @@ export default function ParticleName() {
     }
 
     function frame() {
-      const w = canvasEl.width;
-      const h = canvasEl.height;
-      ctx2d.clearRect(0, 0, w, h);
-      const mouse = mouseRef.current;
-      particles.forEach((p) => {
-        // Ease back toward the letter shape.
-        p.vx += (p.tx - p.x) * 0.06;
-        p.vy += (p.ty - p.y) * 0.06;
-        // Scatter when the pointer comes close.
-        if (mouse) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 90 && dist > 0.01) {
-            const force = ((90 - dist) / 90) * 5;
-            p.vx += (dx / dist) * force;
-            p.vy += (dy / dist) * force;
+      // Offscreen: keep the loop alive but skip all drawing work, so a
+      // scrolled-past hero costs nothing.
+      if (visibleRef.current) {
+        const w = canvasEl.width;
+        const h = canvasEl.height;
+        ctx2d.clearRect(0, 0, w, h);
+        const mouse = mouseRef.current;
+        particles.forEach((p) => {
+          // Ease back toward the letter shape.
+          p.vx += (p.tx - p.x) * 0.06;
+          p.vy += (p.ty - p.y) * 0.06;
+          // Gentle scatter when the pointer comes close — playful, not an
+          // explosion: smaller radius and softer force than before.
+          if (mouse) {
+            const dx = p.x - mouse.x;
+            const dy = p.y - mouse.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 70 && dist > 0.01) {
+              const force = ((70 - dist) / 70) * 3.5;
+              p.vx += (dx / dist) * force;
+              p.vy += (dy / dist) * force;
+            }
           }
-        }
-        p.vx *= 0.9;
-        p.vy *= 0.9;
-        p.x += p.vx;
-        p.y += p.vy;
-        ctx2d.fillStyle = p.color;
-        ctx2d.fillRect(p.x, p.y, p.size, p.size);
-      });
+          p.vx *= 0.9;
+          p.vy *= 0.9;
+          p.x += p.vx;
+          p.y += p.vy;
+          ctx2d.fillStyle = p.color;
+          ctx2d.fillRect(p.x, p.y, p.size, p.size);
+        });
+      }
       raf = requestAnimationFrame(frame);
     }
 
@@ -175,6 +184,10 @@ export default function ParticleName() {
 
     const ro = new ResizeObserver(onResize);
     ro.observe(container);
+    const io = new IntersectionObserver(([entry]) => {
+      visibleRef.current = entry.isIntersecting;
+    });
+    io.observe(container);
     container.addEventListener("mousemove", onMove);
     container.addEventListener("touchmove", onTouch, { passive: true });
     container.addEventListener("mouseleave", onLeave);
@@ -183,6 +196,7 @@ export default function ParticleName() {
       cancelAnimationFrame(raf);
       window.clearTimeout(resizeTimer);
       ro.disconnect();
+      io.disconnect();
       container.removeEventListener("mousemove", onMove);
       container.removeEventListener("touchmove", onTouch);
       container.removeEventListener("mouseleave", onLeave);
@@ -200,7 +214,7 @@ export default function ParticleName() {
   }
 
   return (
-    <div ref={containerRef} className="h-[120px] w-full sm:h-[190px]">
+    <div ref={containerRef} className="h-[60px] w-full sm:h-[80px]">
       <h1 id="hero-heading" className="sr-only">
         {profile.name}
       </h1>

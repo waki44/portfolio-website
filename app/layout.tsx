@@ -5,7 +5,6 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import ModelLoader from "@/components/ModelLoader";
-import CursorGlow from "@/components/CursorGlow";
 import TrainingPanel from "@/components/TrainingPanel";
 import NeuronBackground from "@/components/NeuronBackground";
 import { profile } from "@/data/profile";
@@ -148,7 +147,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col bg-[#050505] font-sans text-zinc-100">
         <ModelLoader />
-        <CursorGlow />
         <TrainingPanel />
         <NeuronBackground />
         {/* Film-grain texture overlay, above content but below the loader. */}
