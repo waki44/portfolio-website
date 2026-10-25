@@ -3,20 +3,28 @@
 import { useEffect, useRef } from "react";
 
 type Neuron = {
+  baseX: number;
+  baseY: number;
   x: number;
   y: number;
-  vx: number;
-  vy: number;
   r: number;
   color: string;
   phase: number;
+  // 0..1: how strongly this neuron is firing right now. Set to 1 when a
+  // signal arrives, then decays — the flash is what makes the net look
+  // like it is thinking, not just sitting there.
+  flash: number;
+  layer: number;
 };
 
-// A signal travelling from one neuron to a neighbour: this is what makes
-// the network visibly "do something" instead of just twinkling.
-type Pulse = {
+type Edge = {
   a: Neuron;
   b: Neuron;
+};
+
+// A signal racing along one connection.
+type Pulse = {
+  edge: Edge;
   t: number;
   speed: number;
 };
@@ -24,12 +32,14 @@ type Pulse = {
 const COLORS = ["#22d3ee", "#8b5cf6", "#e4e4e7"];
 
 /**
- * Neuron-network background for the whole site: softly glowing nodes
- * joined by synapse-like lines, with bright signal pulses travelling along
- * connections. Built for the dark theme — cyan/violet light on near-black —
- * and kept faint so text stays readable. No library, one canvas, node count
- * scaled to screen size. With reduced motion it draws a single static frame
- * and stops.
+ * A real neural network as the site background — not random stars. Neurons
+ * sit in vertical layers (input → hidden → output) spanning the viewport,
+ * wired to the next layer, bobbing gently in place so the structure stays
+ * readable. Bright signals race along the connections many times a second,
+ * and every neuron a signal reaches flashes and usually fires a signal of
+ * its own down the line, so the whole net looks busy and fast. Dark-theme
+ * colours (cyan/violet on near-black), faint enough to keep text readable.
+ * With reduced motion it draws one static frame and stops.
  */
 export default function NeuronBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -45,7 +55,8 @@ export default function NeuronBackground() {
     const canvasEl = canvas;
     const ctx2d = ctx;
 
-    let nodes: Neuron[] = [];
+    let neurons: Neuron[] = [];
+    let edges: Edge[] = [];
     let pulses: Pulse[] = [];
     let raf = 0;
     let resizeTimer = 0;
@@ -57,52 +68,67 @@ export default function NeuronBackground() {
       canvasEl.width = w;
       canvasEl.height = h;
       const isMobile = w < 640;
-      const cap = isMobile ? 30 : 60;
-      const count = Math.max(20, Math.min(cap, Math.floor((w * h) / 22000)));
-      nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: 1.2 + Math.random() * 1.3,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        phase: Math.random() * Math.PI * 2,
-      }));
+      const layerCount = isMobile ? 4 : 6;
+      const marginX = w * 0.07;
+      const marginY = h * 0.12;
+      neurons = [];
+      edges = [];
       pulses = [];
+      const layers: Neuron[][] = [];
+      for (let l = 0; l < layerCount; l++) {
+        const x = marginX + (l * (w - marginX * 2)) / (layerCount - 1);
+        const count = Math.max(3, Math.min(6, Math.round(h / 150)));
+        const layer: Neuron[] = [];
+        for (let i = 0; i < count; i++) {
+          const y =
+            marginY + (i * (h - marginY * 2)) / (count - 1) + (Math.random() - 0.5) * 36;
+          const n: Neuron = {
+            baseX: x,
+            baseY: y,
+            x,
+            y,
+            r: 1.5 + Math.random() * 0.8,
+            color: COLORS[Math.floor(Math.random() * COLORS.length)],
+            phase: Math.random() * Math.PI * 2,
+            flash: 0,
+            layer: l,
+          };
+          layer.push(n);
+          neurons.push(n);
+        }
+        layers.push(layer);
+      }
+      // Wire each neuron to 2–3 neurons of the next layer (never the whole
+      // layer: a full mesh would be unreadable noise).
+      for (let l = 0; l < layers.length - 1; l++) {
+        const targets = layers[l + 1];
+        layers[l].forEach((n) => {
+          const k = Math.min(targets.length, 2 + Math.floor(Math.random() * 2));
+          const shuffled = [...targets].sort(() => Math.random() - 0.5);
+          for (let i = 0; i < k; i++) edges.push({ a: n, b: shuffled[i] });
+        });
+      }
     }
 
-    function draw(time: number) {
+    function draw() {
       const w = canvasEl.width;
       const h = canvasEl.height;
       ctx2d.clearRect(0, 0, w, h);
-      const linkDist = w < 640 ? 110 : 130;
-      const linkDistSq = linkDist * linkDist;
-      // Synapse lines between nearby neurons (squared-distance check, so
-      // the expensive square root runs only for pairs already in range).
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < linkDistSq) {
-            const d = Math.sqrt(d2);
-            const alpha = (1 - d / linkDist) * 0.38;
-            ctx2d.strokeStyle =
-              a.color === "#e4e4e7" ? `rgba(228, 228, 231, ${alpha})` : `rgba(34, 211, 238, ${alpha})`;
-            ctx2d.lineWidth = 1;
-            ctx2d.beginPath();
-            ctx2d.moveTo(a.x, a.y);
-            ctx2d.lineTo(b.x, b.y);
-            ctx2d.stroke();
-          }
-        }
-      }
-      // Travelling signal pulses: bright dots moving along connections.
+      // Connections: faint normally, brighter while a signal rides them.
+      const activeEdges = new Set(pulses.map((p) => p.edge));
+      edges.forEach((e) => {
+        const active = activeEdges.has(e);
+        ctx2d.strokeStyle = active ? "rgba(34, 211, 238, 0.45)" : "rgba(148, 163, 184, 0.16)";
+        ctx2d.lineWidth = active ? 1.2 : 1;
+        ctx2d.beginPath();
+        ctx2d.moveTo(e.a.x, e.a.y);
+        ctx2d.lineTo(e.b.x, e.b.y);
+        ctx2d.stroke();
+      });
+      // Signals racing along connections.
       pulses.forEach((p) => {
-        const x = p.a.x + (p.b.x - p.a.x) * p.t;
-        const y = p.a.y + (p.b.y - p.a.y) * p.t;
+        const x = p.edge.a.x + (p.edge.b.x - p.edge.a.x) * p.t;
+        const y = p.edge.a.y + (p.edge.b.y - p.edge.a.y) * p.t;
         ctx2d.fillStyle = "rgba(165, 243, 252, 0.35)";
         ctx2d.beginPath();
         ctx2d.arc(x, y, 6, 0, Math.PI * 2);
@@ -112,59 +138,61 @@ export default function NeuronBackground() {
         ctx2d.arc(x, y, 2, 0, Math.PI * 2);
         ctx2d.fill();
       });
-      // Nodes: soft halo + bright core, gently pulsing.
-      nodes.forEach((n) => {
-        const pulse = 1 + Math.sin(time / 1000 + n.phase) * 0.3;
-        ctx2d.fillStyle = n.color === "#8b5cf6" ? "rgba(139, 92, 246, 0.12)" : "rgba(34, 211, 238, 0.12)";
+      // Neurons: halo + core; a firing neuron glows bigger and whiter.
+      neurons.forEach((n) => {
+        const glow = 0.1 + n.flash * 0.5;
+        ctx2d.fillStyle =
+          n.color === "#8b5cf6" ? `rgba(139, 92, 246, ${glow})` : `rgba(34, 211, 238, ${glow})`;
         ctx2d.beginPath();
-        ctx2d.arc(n.x, n.y, n.r * 4 * pulse, 0, Math.PI * 2);
+        ctx2d.arc(n.x, n.y, n.r * 4 * (1 + n.flash * 1.5), 0, Math.PI * 2);
         ctx2d.fill();
-        ctx2d.fillStyle = n.color;
+        ctx2d.fillStyle = n.flash > 0.3 ? "#ecfeff" : n.color;
         ctx2d.globalAlpha = 0.9;
         ctx2d.beginPath();
-        ctx2d.arc(n.x, n.y, n.r * pulse, 0, Math.PI * 2);
+        ctx2d.arc(n.x, n.y, n.r * (1 + n.flash), 0, Math.PI * 2);
         ctx2d.fill();
         ctx2d.globalAlpha = 1;
       });
     }
 
     function frame(time: number) {
-      const w = canvasEl.width;
-      const h = canvasEl.height;
-      nodes.forEach((n) => {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < -10) n.x = w + 10;
-        if (n.x > w + 10) n.x = -10;
-        if (n.y < -10) n.y = h + 10;
-        if (n.y > h + 10) n.y = -10;
+      // Gentle bob in place: the network stays readable, nothing wanders
+      // off its layer.
+      neurons.forEach((n) => {
+        n.x = n.baseX + Math.sin(time / 1800 + n.phase) * 6;
+        n.y = n.baseY + Math.cos(time / 1500 + n.phase) * 8;
+        n.flash = Math.max(0, n.flash - 0.03);
       });
-      // Spawn a new signal every ~450ms from a random neuron to one of its
-      // current neighbours, so traffic is always moving through the net.
-      const linkDist = w < 640 ? 110 : 130;
-      if (time - lastSpawn > 450 && pulses.length < 12 && nodes.length > 1) {
+      // New signals several times a second, up to ~30 in flight at once.
+      if (time - lastSpawn > 100 && pulses.length < 30 && edges.length > 0) {
         lastSpawn = time;
-        const a = nodes[Math.floor(Math.random() * nodes.length)];
-        const neighbours = nodes.filter((n) => {
-          if (n === a) return false;
-          const dx = n.x - a.x;
-          const dy = n.y - a.y;
-          return dx * dx + dy * dy < linkDist * linkDist;
+        pulses.push({
+          edge: edges[Math.floor(Math.random() * edges.length)],
+          t: 0,
+          speed: 0.02 + Math.random() * 0.015,
         });
-        if (neighbours.length > 0) {
-          pulses.push({
-            a,
-            b: neighbours[Math.floor(Math.random() * neighbours.length)],
-            t: 0,
-            speed: 0.008 + Math.random() * 0.008,
-          });
-        }
       }
+      const next: Pulse[] = [];
       pulses.forEach((p) => {
         p.t += p.speed;
+        if (p.t >= 1) {
+          // Arrival: the target neuron fires, and usually forwards a
+          // signal of its own — chains of activity ripple through layers.
+          p.edge.b.flash = 1;
+          const outgoing = edges.filter((e) => e.a === p.edge.b);
+          if (outgoing.length > 0 && Math.random() < 0.6) {
+            next.push({
+              edge: outgoing[Math.floor(Math.random() * outgoing.length)],
+              t: 0,
+              speed: 0.02 + Math.random() * 0.015,
+            });
+          }
+        } else {
+          next.push(p);
+        }
       });
-      pulses = pulses.filter((p) => p.t <= 1);
-      draw(time);
+      pulses = next;
+      draw();
       raf = requestAnimationFrame(frame);
     }
 
@@ -175,7 +203,7 @@ export default function NeuronBackground() {
 
     init();
     if (reduced) {
-      draw(0);
+      draw();
     } else {
       raf = requestAnimationFrame(frame);
     }
