@@ -21,6 +21,35 @@ body {
   color: #fff;
 }
 
+/* Animated background (paired with components/BackgroundFX.tsx):
+   slow-drifting gradient blobs over a faint grid. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(0 0 0 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+}
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(48px, 32px) scale(1.12);
+  }
+  66% {
+    transform: translate(-32px, 56px) scale(0.92);
+  }
+}
+.animate-blob {
+  animation: blob-drift 22s ease-in-out infinite;
+}
+
 /* Scroll-triggered reveal (paired with components/Reveal.tsx) */
 .reveal {
   opacity: 0;
@@ -118,6 +147,7 @@ body {
     transition: none;
   }
   .animate-fade-up,
+  .animate-blob,
   .typing-dot,
   .hero-name-letter,
   .hero-portfolio {

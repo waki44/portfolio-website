@@ -14,9 +14,9 @@ export default function Skills() {
           />
         </Reveal>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group) => (
-            <Reveal key={group.title}>
-              <article className="h-full rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+          {skillGroups.map((group, index) => (
+            <Reveal key={group.title} delay={(index % 3) * 100}>
+              <article className="h-full rounded-2xl border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-600/5 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-indigo-700">
                 <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{group.title}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${group.title} skills`}>
                   {group.skills.map((skill) => (

@@ -15,8 +15,8 @@ export default function Projects() {
           />
         </Reveal>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <Reveal key={project.slug} className="h-full">
+          {projects.map((project, index) => (
+            <Reveal key={project.slug} className="h-full" delay={(index % 3) * 100}>
               <ProjectCard project={project} />
             </Reveal>
           ))}

@@ -6,10 +6,13 @@ export default function Reveal({
   children,
   className = "",
   as: Tag = "div",
+  delay = 0,
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "section" | "article" | "li";
+  /** Stagger delay in ms, so cards in a grid appear one after another. */
+  delay?: number;
 }) {
   const ref = useRef<HTMLElement | null>(null);
 
@@ -37,7 +40,7 @@ export default function Reveal({
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Tag ref={ref as any} className={`reveal ${className}`}>
+    <Tag ref={ref as any} className={`reveal ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : undefined}>
       {children}
     </Tag>
   );
