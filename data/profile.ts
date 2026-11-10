@@ -141,6 +141,7 @@ export const education: EducationItem[] = [
 ];
 
 export const certifications: string[] = [
+  "Neural Networks and Deep Learning — DeepLearning.AI / Coursera (Verified)",
   "Foundations: Data, Data, Everywhere — Google / Coursera (Verified)",
   "Crash Course on Python — Google / Coursera (Verified)",
   "Python for Data Science, AI & Development — IBM / Coursera (Verified)",

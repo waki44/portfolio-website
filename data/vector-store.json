@@ -1,11 +1,11 @@
 {
   "model": "text-embedding-3-small",
-  "createdAt": "2026-10-23T10:11:39.868Z",
+  "createdAt": "2026-11-10T14:16:24.803Z",
   "chunks": [
     {
       "id": "CV — Certifications-0",
       "source": "CV — Certifications",
-      "text": "# Certifications\n## Certifications\n- Crash Course on Python — Google / Coursera (verified)\n- Python for Data Science, AI & Development — IBM / Coursera (verified)\n- Machine Learning Course — Innovista Learn Easy\n- Critical Thinking in the AI Era — HP LIFE\n- CS101 Intro to Programming I — Saylor Academy\n- ChatGPT and OpenAI API — freeCodeCamp / Cursa",
+      "text": "# Certifications\n## Certifications\n- Neural Networks and Deep Learning — DeepLearning.AI / Coursera (verified, November 2026)\n- Crash Course on Python — Google / Coursera (verified)\n- Python for Data Science, AI & Development — IBM / Coursera (verified)\n- Machine Learning Course — Innovista Learn Easy\n- Critical Thinking in the AI Era — HP LIFE\n- CS101 Intro to Programming I — Saylor Academy\n- ChatGPT and OpenAI API — freeCodeCamp / Cursa",
       "embedding": []
     },
     {
@@ -29,25 +29,31 @@
     {
       "id": "CV — Profile-1",
       "source": "CV — Profile",
-      "text": "- Email: syedwaqarraza27@gmail.com\n- GitHub: github.com/waki44\n- GitHub: github.com/waki_44\n- Location: Islamabad, Pakistan\n## Languages\n- Urdu: native\n- English: intermediate",
+      "text": "- Email: syedwaqarraza27@gmail.com\n- GitHub: github.com/waki44\n- GitHub: github.com/waki_44\n- LinkedIn: linkedin.com/in/syed-waqar-raza-zaidi-65672b242\n- Instagram: instagram.com/waki_44\n- Phone: +92 332-8569629\n- Location: Islamabad, Pakistan\n## Languages\n- Urdu: native\n- English: intermediate",
       "embedding": []
     },
     {
       "id": "CV — Projects-0",
       "source": "CV — Projects",
-      "text": "# Projects\n## Automated Database Code Audit Tool\nBuilt with Python, database schema analysis, security and compliance techniques. It automates schema and query analysis to find vulnerabilities and optimise performance. Available on GitHub.\n## GymPro Gym Management System\nBuilt with React.js, FastAPI, MongoDB, Tailwind CSS, and Recharts. Features include member registration, membership records, fee tracking, expiry alerts, dashboard analytics, workout filters, and monthly revenue charts. Demo: workout-fee-manager.preview.emergentagent.com\n## DataNest AI Assistant",
+      "text": "# Projects\n## Automated Database Code Audit Tool\nBuilt with Python, database schema analysis, security and compliance techniques. It automates schema and query analysis to find vulnerabilities and optimise performance. Available at github.com/waki44/Autonomous-code-autitor\n## GymPro Gym Management System\nBuilt with React.js, FastAPI, MongoDB, Tailwind CSS, and Recharts. Features include member registration, membership records, fee tracking, expiry alerts, dashboard analytics, workout filters, and monthly revenue charts. Demo: workout-fee-manager.preview.emergentagent.com\n## DataNest AI Assistant",
       "embedding": []
     },
     {
       "id": "CV — Projects-1",
       "source": "CV — Projects",
-      "text": "Built with Python, CustomTkinter, and the Google Gemini API. A Windows desktop AI operator with a custom GUI. Available at github.com/waki44/DataNest-AI-Assistant\n## AI Content Detector\nBuilt with HTML, CSS, JavaScript, the Claude API, and the Hugging Face Inference API. It provides text and image analysis with confidence scores and explanations. Available at github.com/waki_44/ai-detector\n## Image Caption Generator\nBuilt with Python, PyTorch, Hugging Face Transformers, Salesforce BLIP, and Gradio. It uses BLIP for image captioning with a Gradio UI.\n## RumiCloud Share Space",
+      "text": "Built with Python, CustomTkinter, and the Google Gemini API. A Windows desktop AI operator with a custom GUI. Available at github.com/waki44/DataNest-AI-Assistant\n## AI Content Detector\nBuilt with HTML, CSS, JavaScript, the Claude API, and the Hugging Face Inference API. It provides text and image analysis with confidence scores and explanations. (The GitHub repository was deleted by the owner and is no longer available.)\n## Image Caption Generator\nBuilt with Python, PyTorch, Hugging Face Transformers, Salesforce BLIP, and Gradio. It uses BLIP for image captioning with a Gradio UI.\n## RumiCloud Share Space",
       "embedding": []
     },
     {
       "id": "CV — Projects-2",
       "source": "CV — Projects",
-      "text": "A full-stack cloud storage project built with Lovable AI. Features include uploads, shareable links, and file management. Demo: preview--rumicloud-share-space.lovable.app\n## RAG Portfolio Agent & LLM Utilities\nBuilt with Python, vector databases, semantic search, LLM APIs, and REST APIs. Includes a conversational portfolio agent with semantic retrieval and RAG, a local multi-model API wrapper and testing environment, and utilities for file organisation, web scraping, and data processing.",
+      "text": "A full-stack cloud storage project built with Lovable AI. Features include uploads, shareable links, and file management. Demo: preview--rumicloud-share-space.lovable.app\n## RAG Portfolio Agent & LLM Utilities\nBuilt with Python, vector databases, semantic search, LLM APIs, and REST APIs. Includes a conversational portfolio agent with semantic retrieval and RAG, a local multi-model API wrapper and testing environment, and utilities for file organisation, web scraping, and data processing.\n## AI Sentiment Analyzer",
+      "embedding": []
+    },
+    {
+      "id": "CV — Projects-3",
+      "source": "CV — Projects",
+      "text": "Built with Python, Scikit-Learn, TF-IDF, and Streamlit. An end-to-end ML web app that classifies customer reviews into positive or negative sentiments. Available at github.com/waki44/ai-sentiment-analyzer\n## FBR Wala — Tax & Wealth Statement CLI\nBuilt in Python. A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper. Available at github.com/waki44/fbr-wala",
       "embedding": []
     },
     {
