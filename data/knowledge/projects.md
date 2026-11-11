@@ -32,6 +32,6 @@ Built with Python, vector databases, semantic search, LLM APIs, and REST APIs. I
 
 Built with Python, Scikit-Learn, TF-IDF, and Streamlit. An end-to-end ML web app that classifies customer reviews into positive or negative sentiments. Available at github.com/waki44/ai-sentiment-analyzer
 
-## FBR Wala — Tax & Wealth Statement CLI
+## FBR TaxEngine — Tax & Wealth Statement CLI
 
-Built in Python. A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper. Available at github.com/waki44/fbr-wala
+Built in Python. A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper. Available at github.com/waki44/FBR-TaxEngine

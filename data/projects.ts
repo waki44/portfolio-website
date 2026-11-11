@@ -192,9 +192,9 @@ export const projects: Project[] = [
     demo: null,
   },
   {
-    slug: "fbr-wala",
-    image: "/projects/fbr-wala.jpg",
-    name: "FBR Wala — Tax & Wealth Statement CLI",
+    slug: "fbr-taxengine",
+    image: "/projects/fbr-taxengine.jpg",
+    name: "FBR TaxEngine — Tax & Wealth Statement CLI",
     tagline: "Pakistan FBR tax calculation CLI engine for salaried and freelancers",
     description:
       "A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper, built in Python.",
@@ -208,7 +208,7 @@ export const projects: Project[] = [
       "Command-line interface in Python",
     ],
     technologies: ["Python", "CLI"],
-    github: "https://github.com/waki44/fbr-wala",
+    github: "https://github.com/waki44/FBR-TaxEngine",
     githubNote: null,
     demo: null,
   },

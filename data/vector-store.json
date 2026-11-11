@@ -1,6 +1,6 @@
 {
   "model": "text-embedding-3-small",
-  "createdAt": "2026-11-10T14:16:24.803Z",
+  "createdAt": "2026-11-11T16:15:44.264Z",
   "chunks": [
     {
       "id": "CV — Certifications-0",
@@ -53,7 +53,7 @@
     {
       "id": "CV — Projects-3",
       "source": "CV — Projects",
-      "text": "Built with Python, Scikit-Learn, TF-IDF, and Streamlit. An end-to-end ML web app that classifies customer reviews into positive or negative sentiments. Available at github.com/waki44/ai-sentiment-analyzer\n## FBR Wala — Tax & Wealth Statement CLI\nBuilt in Python. A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper. Available at github.com/waki44/fbr-wala",
+      "text": "Built with Python, Scikit-Learn, TF-IDF, and Streamlit. An end-to-end ML web app that classifies customer reviews into positive or negative sentiments. Available at github.com/waki44/ai-sentiment-analyzer\n## FBR TaxEngine — Tax & Wealth Statement CLI\nBuilt in Python. A Pakistan FBR tax calculation and wealth statement CLI engine for salaried individuals and freelancers, designed as an IRIS helper. Available at github.com/waki44/FBR-TaxEngine",
       "embedding": []
     },
     {
