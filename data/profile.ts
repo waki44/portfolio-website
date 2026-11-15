@@ -21,6 +21,15 @@ export const profile = {
     label: "instagram.com/waki_44",
     url: "https://www.instagram.com/waki_44/",
   },
+  x: {
+    label: "x.com/raza_syedwaqar",
+    url: "https://x.com/raza_syedwaqar",
+  },
+  // Short search-facing description (~155 chars) used for the meta
+  // description and social cards. The long `summary` below stays as the
+  // visible About text and the JSON-LD description.
+  seoDescription:
+    "Syed Waqar Raza Zaidi — AI Engineer in Islamabad, Pakistan. Python automation & software developer building LLM, RAG and machine-learning products.",
   summary:
     "Syed Waqar Raza Zaidi is an AI engineer and Python developer with hands-on experience building AI-powered applications, LLM integrations, computer-vision demos, Python automation tools, and full-stack applications. Experienced with Python, PyTorch, Hugging Face Transformers, FastAPI, REST APIs, and web/mobile interfaces. Long-term goal: specialising in ML engineering. Brings project ownership, team coordination, and a focus on practical, maintainable software.",
   cvPath: "/Syed_Waqar_Raza_Zaidi_CV.pdf",

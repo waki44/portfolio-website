@@ -30,7 +30,10 @@ export const metadata: Metadata = {
     default: `${profile.name} — ${profile.title}`,
     template: `%s | ${profile.name}`,
   },
-  description: profile.summary,
+  description: profile.seoDescription,
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: "UJN524NbaFLvwblfhlseRRld4NwQKsaiJz9QtUCwjiQ",
   },
@@ -75,26 +78,55 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: profile.name,
     title: `${profile.name} — ${profile.title}`,
-    description: profile.summary,
+    description: profile.seoDescription,
     locale: "en_US",
     images: [{ url: "/og-image.jpg", width: 1200, height: 600, alt: `${profile.name} — AI Engineer, Portfolio` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${profile.name} — ${profile.title}`,
-    description: profile.summary,
+    description: profile.seoDescription,
     images: ["/og-image.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 // Structured data: tells Google / recruiter search tools exactly who this
 // person is, what he does, and which profiles are his (sameAs disambiguates
-// him from other people named Waqar Zaidi).
+// him from other people named Waqar Zaidi). The graph ties the Person to
+// this profile page and website so search engines treat them as one entity.
 const personJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: `${profile.name} — Portfolio`,
+      about: { "@id": `${siteUrl}/#person` },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/#profilepage`,
+      url: siteUrl,
+      name: `${profile.name} — ${profile.title}`,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      mainEntity: { "@id": `${siteUrl}/#person` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: profile.name,
   alternateName: ["Waqar", "Waqar Zaidi", "Syed Waqar Zaidi", "Syed Waqar Raza", "Waqar Raza Zaidi", "Waqar Raza"],
   jobTitle: "AI Engineer",
   hasOccupation: [
@@ -136,10 +168,15 @@ const personJsonLd = {
     "FastAPI",
     "React",
   ],
-  sameAs: [
-    profile.linkedin.url,
-    "https://github.com/waki44",
-    profile.instagram.url,
+      image: `${siteUrl}${profile.photo}`,
+      mainEntityOfPage: { "@id": `${siteUrl}/#profilepage` },
+      sameAs: [
+        profile.linkedin.url,
+        "https://github.com/waki44",
+        profile.instagram.url,
+        profile.x.url,
+      ],
+    },
   ],
 };
 

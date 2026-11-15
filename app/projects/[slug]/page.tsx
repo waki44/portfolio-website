@@ -15,10 +15,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: project.name,
     description: project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
     openGraph: {
       title: project.name,
       description: project.description,
       type: "article",
+      url: `/projects/${project.slug}`,
+      images: [{ url: project.image, alt: `${project.name} — project by Syed Waqar Raza Zaidi` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.name,
+      description: project.description,
+      images: [project.image],
     },
   };
 }
