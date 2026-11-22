@@ -1,6 +1,6 @@
 {
   "model": "text-embedding-3-small",
-  "createdAt": "2026-11-11T16:15:44.264Z",
+  "createdAt": "2026-11-22T05:04:18.653Z",
   "chunks": [
     {
       "id": "CV — Certifications-0",
@@ -18,6 +18,36 @@
       "id": "CV — Experience-0",
       "source": "CV — Experience",
       "text": "# Experience & Leadership\n## Tech Lead & Content Creator at Duo Byte AI\nTech Lead & Content Creator at Duo Byte AI (@duobyte_AI), creating educational tech content on AI tools, developer utilities, productivity apps, and student resources, including practical tutorials on AI-assisted tools and developer workflows.\n## Academic Project Team Lead at FUUAST\nAcademic Project Team Lead at FUUAST. Led teams of 3–4 students, covering planning, task allocation, progress, and delivery. Reviewed and integrated contributions, resolved issues, and checked deliverables, with a focus on team coordination, ownership, and quality review.",
+      "embedding": []
+    },
+    {
+      "id": "CV — Faq-0",
+      "source": "CV — Faq",
+      "text": "# Frequently Asked Questions\n## Who is Syed Waqar Raza Zaidi?\nSyed Waqar Raza Zaidi is an AI Engineer and Python developer based in Islamabad, Pakistan. He has shipped 10+ working projects since October 2024, including a RAG-based AI assistant rolled out to 35+ users, machine-learning models and Python automation tools.\n## What does an AI Engineer in Islamabad do?",
+      "embedding": []
+    },
+    {
+      "id": "CV — Faq-1",
+      "source": "CV — Faq",
+      "text": "An AI Engineer designs and builds systems that use machine learning and large language models to solve real problems — for example chatbots that answer from a business's own documents, models that analyse data, and automations that remove repetitive manual work. Waqar does this work from Islamabad for clients and teams in Pakistan and remotely worldwide.\n## What services does Waqar offer?\nAI engineering, Python development and automation, machine-learning models, RAG chatbot development for businesses, data analytics, and full-stack web applications built with React and FastAPI.\n## What technologies does Waqar work with?",
+      "embedding": []
+    },
+    {
+      "id": "CV — Faq-2",
+      "source": "CV — Faq",
+      "text": "Python, PyTorch, machine learning, large language models (LLMs) and retrieval-augmented generation (RAG), FastAPI, React, TypeScript and MongoDB, along with data-analytics tooling across the Python ecosystem.\n## What projects has Waqar built?\nHis best-known project is DataNest, a RAG-based AI assistant he built and rolled out to 35+ users. He has also built an AI sentiment analyser, the FBR TaxEngine, an automated database code audit tool, and this portfolio's own RAG chatbot — 10+ shipped projects in total since October 2024.\n## Can Waqar build a chatbot for my business?",
+      "embedding": []
+    },
+    {
+      "id": "CV — Faq-3",
+      "source": "CV — Faq",
+      "text": "Yes. He builds RAG chatbots that answer customer questions from a business's own documents, services and FAQs — built for clinics, academies, real-estate firms and shops. The chatbot on this portfolio is a live example of his work. Reach him through the contact form on the site or by email.\n## Is Waqar available for internships and roles?\nYes — he is open to AI/ML internships, AI Engineer and Python Developer roles, and freelance projects. He is based in Islamabad (on-site in Islamabad/Rawalpindi) and works remotely with teams anywhere in the world.\n## What certifications does Waqar hold?",
+      "embedding": []
+    },
+    {
+      "id": "CV — Faq-4",
+      "source": "CV — Faq",
+      "text": "He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first course of DeepLearning.AI's Deep Learning Specialization with a grade of 96.66%.\n## How can I contact Waqar?\nThrough the contact form on the portfolio site, by email at syedwaqarraza27@gmail.com, or on LinkedIn at linkedin.com/in/syed-waqar-raza-zaidi-65672b242. His code is on GitHub at github.com/waki44.",
       "embedding": []
     },
     {
