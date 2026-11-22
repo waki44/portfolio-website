@@ -20,6 +20,8 @@ export type Project = {
   metrics?: { label: string; value: number }[];
   /** Optional long-form case study, rendered as headed sections on the project page. */
   caseStudy?: { heading: string; body: string }[];
+  /** Optional screenshot gallery (image paths), rendered under the hero image. */
+  gallery?: string[];
 };
 
 export const projects: Project[] = [
@@ -47,6 +49,13 @@ export const projects: Project[] = [
     github: "https://github.com/waki44/islamic-companion",
     githubNote: null,
     demo: "https://waki44.github.io/islamic-companion/",
+    gallery: [
+      "/projects/misbah/home.png",
+      "/projects/misbah/qaza.png",
+      "/projects/misbah/tasbeeh.png",
+      "/projects/misbah/library.png",
+      "/projects/misbah/reader.png",
+    ],
     caseStudy: [
       {
         heading: "The insight",

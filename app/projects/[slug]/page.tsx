@@ -65,6 +65,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         />
       </div>
 
+      {project.gallery ? (
+        <div className="mt-8 flex gap-4 overflow-x-auto pb-2" aria-label="App screenshots">
+          {project.gallery.map((src) => (
+            <div key={src} className="relative h-80 w-[156px] shrink-0 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+              <Image src={src} alt={`${project.name} — app screenshot`} fill sizes="156px" className="object-cover object-top" />
+            </div>
+          ))}
+        </div>
+      ) : null}
+
       <div className="mt-8 flex flex-wrap gap-3">
         {project.github ? (
           <a
