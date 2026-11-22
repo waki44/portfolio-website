@@ -110,6 +110,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-200">{project.contribution}</p>
       </section>
 
+      {project.caseStudy ? (
+        <section aria-labelledby="project-case-study" className="mt-12">
+          <h2 id="project-case-study" className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+            Case study
+          </h2>
+          {project.caseStudy.map((part) => (
+            <div key={part.heading} className="mt-6">
+              <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{part.heading}</h3>
+              <p className="mt-2 leading-relaxed text-zinc-600 dark:text-zinc-200">{part.body}</p>
+            </div>
+          ))}
+        </section>
+      ) : null}
+
       <section aria-labelledby="project-features" className="mt-10">
         <h2 id="project-features" className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           Key features

@@ -18,6 +18,8 @@ export type Project = {
    * (features, technologies) alongside any metrics added here later.
    */
   metrics?: { label: string; value: number }[];
+  /** Optional long-form case study, rendered as headed sections on the project page. */
+  caseStudy?: { heading: string; body: string }[];
 };
 
 export const projects: Project[] = [
@@ -45,6 +47,24 @@ export const projects: Project[] = [
     github: "https://github.com/waki44/islamic-companion",
     githubNote: null,
     demo: "https://waki44.github.io/islamic-companion/",
+    caseStudy: [
+      {
+        heading: "The insight",
+        body: "Most prayer apps are built around today's prayers. For many Muslims, though, the real weight is the backlog — months of missed (Qaza) prayers with no count and no plan to clear them. Misbah-ul-Huda was designed backlog-first: count what is owed prayer by prayer, make the number visibly shrink, and turn it into a plan with a finish date instead of a source of guilt.",
+      },
+      {
+        heading: "Design decisions that matter",
+        body: "Three decisions shaped the product. First, ladies' period days never count as Qaza — cycle days are a first-class state in the data model, excluded from the automatic Qaza suggestions by design, not patched in later, and the section is privacy-protected on the app switcher. Second, no guilt mechanics: no streaks, no red warnings — a calm 'Luminous Courtyard' interface in crimson, golden amber, warm taupe and near-black navy. Third, content integrity: the library ships complete, verified Arabic texts with English translation, checked segment by segment (Ziyarat-e-Ashura 124 segments, Dua-e-Nudba 222, Dua-e-Kumayl 250) rather than scraped blindly.",
+      },
+      {
+        heading: "Engineering challenges",
+        body: "The hardest bug was invisible on desktop: on iPhone, rapidly tapping the Qaza + button triggered Safari's double-tap zoom and wrecked the layout. Safari in standalone PWA mode ignores both touch-action and user-scalable, so the fix is a small JavaScript touchend suppressor that blocks the zoom gesture but re-fires the tap as a click — the count never misses. Updates reach installed users through a stale-while-revalidate service worker, so fixes ship without any app store. The account layer runs on Supabase: Google sign-in plus one JSONB row per user, guarded by Row Level Security policies, which is what makes the public anon key safe to ship in a static app.",
+      },
+      {
+        heading: "The result",
+        body: "A live, installable app running entirely on free infrastructure (GitHub Pages + Supabase): a 5-prayer daily tracker with Jafari prayer times, per-prayer Qaza counters including Namaz-e-Ayat, a Khatam Plan with a projected finish date, an auto-Qaza suggestion engine, a Tasbeeh counter, an 8-text Arabic + English library, a Hijri calendar with wiladat/shahadat dates, Qibla direction and a monthly report — no app store, no server to maintain.",
+      },
+    ],
   },
   {
     slug: "automated-database-code-audit-tool",
