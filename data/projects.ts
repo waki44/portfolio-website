@@ -22,6 +22,31 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "misbah-ul-huda",
+    image: "/projects/misbah-ul-huda.jpg",
+    name: "Misbah-ul-Huda — Shia Islamic Companion App",
+    tagline: "Installable web app with prayer & Qaza tracking, Tasbeeh and a full Ziyarat library",
+    description:
+      "A production PWA built around one idea: the prayers you missed matter as much as the ones you pray. Daily prayer tracking with Jafari (Tehran) prayer times, a separate Qaza counter for every prayer — including Namaz-e-Ayat — a Qaza Khatam Plan that projects your finish date, a private ladies' section where period days never count as Qaza, a Tasbeeh counter, and a library of 8 complete Arabic texts with English translation. Installs on a phone like a native app and works offline.",
+    problem:
+      "Generic prayer apps track today's prayers but forget the missed ones. Tracking Qaza across months — separately for each prayer, with a realistic finish plan, and correctly excluding ladies' period days — had no proper home, and Shia users also need Jafari prayer times and a real Ziyarat/Dua library in the same place.",
+    contribution:
+      "Designed and built the complete product end to end: the 'Luminous Courtyard' spatial UI, the prayer and Qaza tracking logic, the Qaza Khatam Plan, ladies' cycle handling, the 8-text Arabic + English library, offline PWA support, and the Supabase account and cloud-sync backend with Row Level Security.",
+    features: [
+      "Daily 5-prayer tracker with Jafari prayer times and progress ring",
+      "Per-prayer Qaza counters including Namaz-e-Ayat, with a finish-date Khatam Plan",
+      "Ladies' section — cycle days marked privately, never counted as Qaza",
+      "Tasbeeh counter with 7 dhikrs and lifetime totals",
+      "Library of 8 complete texts in Arabic with English translation — Ziyarat-e-Ashura, Ziyarat-e-Waritha, Dua-e-Kumayl, Dua-e-Nudba, Dua-e-Tawassul, Hadith-e-Kisa, Surah Ya-Sin, Surah Al-Mulk",
+      "Hijri calendar with wiladat/shahadat dates, Qibla direction and monthly report",
+      "Installable PWA — offline support, home-screen icon, no app store needed",
+    ],
+    technologies: ["JavaScript", "PWA", "Supabase", "PostgreSQL", "Adhan.js", "GitHub Pages"],
+    github: "https://github.com/waki44/islamic-companion",
+    githubNote: null,
+    demo: "https://waki44.github.io/islamic-companion/",
+  },
+  {
     slug: "automated-database-code-audit-tool",
     image: "/projects/automated-database-code-audit-tool.jpg",
     name: "Automated Database Code Audit Tool",
