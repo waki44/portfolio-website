@@ -30,7 +30,7 @@ Yes — he is open to AI/ML internships, AI Engineer and Python Developer roles,
 
 ## What certifications does Waqar hold?
 
-He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first course of DeepLearning.AI's Deep Learning Specialization with a grade of 96.66%.
+He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first two courses of DeepLearning.AI's Deep Learning Specialization — Neural Networks and Deep Learning (grade 96.66%) and Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization.
 
 ## How can I contact Waqar?
 
