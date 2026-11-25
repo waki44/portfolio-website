@@ -4,6 +4,7 @@
 
 - Neural Networks and Deep Learning — DeepLearning.AI / Coursera (verified, November 2026)
 - Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization — DeepLearning.AI / Coursera (verified, November 2026)
+- Structuring Machine Learning Projects — DeepLearning.AI / Coursera (verified, November 2026)
 - Crash Course on Python — Google / Coursera (verified)
 - Python for Data Science, AI & Development — IBM / Coursera (verified)
 - Machine Learning Course — Innovista Learn Easy

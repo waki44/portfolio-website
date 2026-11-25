@@ -1,11 +1,11 @@
 {
   "model": "text-embedding-3-small",
-  "createdAt": "2026-11-23T10:30:59.830Z",
+  "createdAt": "2026-11-25T06:55:22.470Z",
   "chunks": [
     {
       "id": "CV — Certifications-0",
       "source": "CV — Certifications",
-      "text": "# Certifications\n## Certifications\n- Neural Networks and Deep Learning — DeepLearning.AI / Coursera (verified, November 2026)\n- Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization — DeepLearning.AI / Coursera (verified, November 2026)\n- Crash Course on Python — Google / Coursera (verified)\n- Python for Data Science, AI & Development — IBM / Coursera (verified)\n- Machine Learning Course — Innovista Learn Easy\n- Critical Thinking in the AI Era — HP LIFE\n- CS101 Intro to Programming I — Saylor Academy\n- ChatGPT and OpenAI API — freeCodeCamp / Cursa",
+      "text": "# Certifications\n## Certifications\n- Neural Networks and Deep Learning — DeepLearning.AI / Coursera (verified, November 2026)\n- Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization — DeepLearning.AI / Coursera (verified, November 2026)\n- Structuring Machine Learning Projects — DeepLearning.AI / Coursera (verified, November 2026)\n- Crash Course on Python — Google / Coursera (verified)\n- Python for Data Science, AI & Development — IBM / Coursera (verified)\n- Machine Learning Course — Innovista Learn Easy\n- Critical Thinking in the AI Era — HP LIFE\n- CS101 Intro to Programming I — Saylor Academy\n- ChatGPT and OpenAI API — freeCodeCamp / Cursa",
       "embedding": []
     },
     {
@@ -47,7 +47,7 @@
     {
       "id": "CV — Faq-4",
       "source": "CV — Faq",
-      "text": "He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first two courses of DeepLearning.AI's Deep Learning Specialization — Neural Networks and Deep Learning (grade 96.66%) and Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization.\n## How can I contact Waqar?\nThrough the contact form on the portfolio site, by email at syedwaqarraza27@gmail.com, or on LinkedIn at linkedin.com/in/syed-waqar-raza-zaidi-65672b242. His code is on GitHub at github.com/waki44.",
+      "text": "He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first three courses of DeepLearning.AI's Deep Learning Specialization — Neural Networks and Deep Learning (grade 96.66%), Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization, and Structuring Machine Learning Projects.\n## How can I contact Waqar?\nThrough the contact form on the portfolio site, by email at syedwaqarraza27@gmail.com, or on LinkedIn at linkedin.com/in/syed-waqar-raza-zaidi-65672b242. His code is on GitHub at github.com/waki44.",
       "embedding": []
     },
     {

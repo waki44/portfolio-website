@@ -42,7 +42,7 @@ export const faqs: { question: string; answer: string }[] = [
   {
     question: "What certifications does Waqar hold?",
     answer:
-      "He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first two courses of DeepLearning.AI's Deep Learning Specialization — Neural Networks and Deep Learning (grade 96.66%) and Improving Deep Neural Networks. The full list is in the Certifications section above.",
+      "He holds certifications from Google, IBM, AWS (Machine Learning) and HP LIFE, and has completed the first three courses of DeepLearning.AI's Deep Learning Specialization — Neural Networks and Deep Learning (grade 96.66%), Improving Deep Neural Networks, and Structuring Machine Learning Projects. The full list is in the Certifications section above.",
   },
   {
     question: "How can I contact Waqar?",
